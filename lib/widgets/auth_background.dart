@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AuthBackground extends StatelessWidget {
+  
   const AuthBackground({Key? key}) : super(key: key);
 
   @override
@@ -15,6 +16,9 @@ class AuthBackground extends StatelessWidget {
         children: [
           // Contenedor de la parte superior.
           _PurpleBox(),
+
+          // Icono de la persona.
+          _HeaderIcon()
         ],
       ),
     );
@@ -31,8 +35,11 @@ class _PurpleBox extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Container(
+      // Ocupa todo el ancho.
       width: double.infinity,
+      // Ocupa el 40% del alto de la pantalla.
       height: size.height * 0.4,
+      // Establezco el fondo en un degradado.
       decoration: _purpleBackground(),
       // El stack contendrá las burbujas.
       child: Stack(
@@ -47,6 +54,7 @@ class _PurpleBox extends StatelessWidget {
     );
   }
 
+  // Método que devuelve el widget BoxDecoration con la configuración establecida.
   BoxDecoration _purpleBackground() => const BoxDecoration(
     gradient: LinearGradient(
       colors: [
@@ -57,17 +65,42 @@ class _PurpleBox extends StatelessWidget {
   );
 }
 
+// Widget extaído que compone cada una de las burbujas del fondo superior.
 class _Bubble extends StatelessWidget {
   const _Bubble({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      // Tamaño de cada burbuja.
       width: 100,
       height: 100,
+      // Utilizo el decoration para poder poner atributos tales como BorderRadius (necesario para hacerlo redondo).
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
         color: const Color.fromRGBO(255, 255, 255, 0.1)
+      ),
+    );
+  }
+}
+
+// Widget extraído que consiste en el icono superior de login (la personita).
+class _HeaderIcon extends StatelessWidget {
+  const _HeaderIcon({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Utilizo SafeArea para no crear conflictos con dispositivos con Notch.
+    return SafeArea(
+      child: Container(
+        // Ocupa el ancho disponible.
+        width: double.infinity,
+        // Margen superior de 35 px.
+        margin: EdgeInsets.only( top: 35 ),
+        // Icono de la persona, en color blanco y con tamaño 100.
+        child: Icon(Icons.person_pin, color: Colors.white, size: 100,),
       ),
     );
   }
