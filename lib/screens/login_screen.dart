@@ -1,3 +1,4 @@
+import 'package:aygp_frontend/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget{
@@ -5,7 +6,7 @@ class LoginScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('Login Screen'),
+        child: AuthBackground(),
       ),
     );
   }
