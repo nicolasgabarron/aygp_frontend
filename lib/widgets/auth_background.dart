@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AuthBackground extends StatelessWidget {
-  
-  const AuthBackground({Key? key}) : super(key: key);
+
+  final Widget child;
+
+  const AuthBackground({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,10 @@ class AuthBackground extends StatelessWidget {
           _PurpleBox(),
 
           // Icono de la persona.
-          _HeaderIcon()
+          _HeaderIcon(),
+
+          // Tarjeta de Login.
+          this.child,
         ],
       ),
     );
