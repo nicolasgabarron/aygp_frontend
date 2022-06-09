@@ -1,13 +1,13 @@
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/reminders_screen.dart';
-import 'package:aygp_frontend/screens/settings_screen.dart';
-import 'package:aygp_frontend/screens/sucesos_clave_screen.dart';
+import 'package:aygp_frontend/screens/navigation_screens/reminders_screen.dart';
+import 'package:aygp_frontend/screens/navigation_screens/settings_screen.dart';
+import 'package:aygp_frontend/screens/navigation_screens/sucesos_clave_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/custom_navigation_bar.dart';
-import 'diary_screen.dart';
-import 'home_screen.dart';
+import '../../widgets/custom_navigation_bar.dart';
+import '../navigation_screens/diary_screen.dart';
+import '../navigation_screens/home_screen.dart';
 
 class BaseScreen extends StatelessWidget {
   @override
