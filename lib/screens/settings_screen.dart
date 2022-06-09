@@ -9,7 +9,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text('Página de recordatorios.'),
+      child: Text('Página de ajustes.'),
     );
   }
 }
