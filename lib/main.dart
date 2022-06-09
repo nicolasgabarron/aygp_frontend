@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ayuda y Gestión Psicológica',
-        initialRoute: 'base',
+        initialRoute: 'login',
         routes: {
           'login': (context) => LoginScreen(),
           'base': (context) => BaseScreen(),
