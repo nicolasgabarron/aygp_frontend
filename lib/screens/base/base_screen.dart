@@ -1,22 +1,52 @@
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/navigation_screens/reminders_screen.dart';
-import 'package:aygp_frontend/screens/navigation_screens/settings_screen.dart';
-import 'package:aygp_frontend/screens/navigation_screens/sucesos_clave_screen.dart';
+import 'package:aygp_frontend/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/custom_navigation_bar.dart';
-import '../navigation_screens/diary_screen.dart';
-import '../navigation_screens/home_screen.dart';
 
 class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Ayuda y Gestión Psicológica')),
+      appBar: PreferredSize(
+        preferredSize: const Size(double.infinity, kToolbarHeight),
+        child: _AdaptiveCustomAppBar(),
+      ),
       body: _HomePageBody(),
       bottomNavigationBar: CustomNavigationBar(),
     );
+  }
+}
+
+class _AdaptiveCustomAppBar extends StatelessWidget {
+  const _AdaptiveCustomAppBar({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // Obtener el selectedMenuOpt.
+    final uiProvider = Provider.of<UiProvider>(context);
+    final currentIndex = uiProvider.selectedMenuOpt;
+
+    return AppBar(
+      title: Text(this.getTitleScreen(currentIndex)),
+    );
+  }
+
+  String getTitleScreen(int index) {
+    switch (index) {
+      case 0:
+        return 'Inicio';
+      case 1:
+        return 'Diario personal';
+      case 2:
+        return 'Sucesos clave';
+      case 3:
+        return 'Recordatorios';
+      case 4:
+        return 'Ajustes';
+      default:
+        return '';
+    }
   }
 }
 
