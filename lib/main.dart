@@ -1,5 +1,5 @@
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/base_screen.dart';
+import 'package:aygp_frontend/screens/base/base_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ayuda y Gestión Psicológica',
-        initialRoute: 'base',
+        initialRoute: 'login',
         routes: {
           'login': (context) => LoginScreen(),
           'base': (context) => BaseScreen(),

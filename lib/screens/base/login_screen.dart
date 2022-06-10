@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      'Bienvenido!',
+                      '¡Bienvenido!',
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     SizedBox(
@@ -130,7 +130,7 @@ class _LoginForm extends StatelessWidget {
 
                   // Si el formulario es válido...
                   if(loginForm.isValidForm()){
-                    Navigator.pushReplacementNamed(context, 'home');
+                    Navigator.pushReplacementNamed(context, 'base');
                   }
 
                 },
