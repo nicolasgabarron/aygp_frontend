@@ -1,10 +1,17 @@
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/base/base_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
+import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Inicializo las SharedPreferences.
+  await Preferences.init();
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
