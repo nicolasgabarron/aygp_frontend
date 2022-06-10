@@ -1,3 +1,4 @@
+import 'package:aygp_frontend/providers/theme_provider.dart';
 import 'package:aygp_frontend/providers/ui_provider.dart';
 import 'package:aygp_frontend/screens/screens.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
@@ -10,7 +11,11 @@ void main() async {
   // Inicializo las SharedPreferences.
   await Preferences.init();
 
-  runApp(MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(isDarkMode: Preferences.isDarkMode),
+    )
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,6 +35,7 @@ class MyApp extends StatelessWidget {
           'login': (context) => LoginScreen(),
           'base': (context) => BaseScreen(),
         },
+        theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),
     );
   }
