@@ -1,15 +1,17 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
+  // Propiedad global la cual se inicializará en el Main.
   static late SharedPreferences _prefs;
 
+  // Propiedades globales que serán definidas a la hora de hacer Login.
   static String _username = '';
   static String _name = '';
   static String _surname = '';
   static bool _isDarkMode = false;
-  // TODO: JWT.
 
-  // Método asíncrono que inicializa la instancia global (singleton) de getInstance().
+  // Método asíncrono que inicializa la instancia global (singleton) de getInstance()
+  // en el main.dart
   static Future init() async {
     _prefs = await SharedPreferences.getInstance();
   }
