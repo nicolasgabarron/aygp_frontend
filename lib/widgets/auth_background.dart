@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AuthBackground extends StatelessWidget {
-
   final Widget child;
 
   const AuthBackground({Key? key, required this.child}) : super(key: key);
@@ -14,12 +13,15 @@ class AuthBackground extends StatelessWidget {
       // Dimensiones que ocupará el widget en la pantalla.
       width: double.infinity,
       height: double.infinity,
+
+      // Stack: para superponer el contenido en forma de pila.
       child: Stack(
         children: [
           // Contenedor de la parte superior.
           _PurpleBox(),
 
           // Icono de la persona.
+          // TODO: Reemplazar por icono de la aplicación.
           _HeaderIcon(),
 
           // Tarjeta de Login.
@@ -36,7 +38,6 @@ class _PurpleBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final size = MediaQuery.of(context).size;
 
     return Container(
@@ -49,11 +50,31 @@ class _PurpleBox extends StatelessWidget {
       // El stack contendrá las burbujas.
       child: Stack(
         children: const [
-          Positioned(child: _Bubble(), top: 90, left: 30,),
-          Positioned(child: _Bubble(), top: -40, left: -30,),
-          Positioned(child: _Bubble(), top: -50, right: -20,),
-          Positioned(child: _Bubble(), bottom: -50, left: 10,),
-          Positioned(child: _Bubble(), top: 120, right: 20,),
+          Positioned(
+            child: _Bubble(),
+            top: 90,
+            left: 30,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: -40,
+            left: -30,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: -50,
+            right: -20,
+          ),
+          Positioned(
+            child: _Bubble(),
+            bottom: -50,
+            left: 10,
+          ),
+          Positioned(
+            child: _Bubble(),
+            top: 120,
+            right: 20,
+          ),
         ],
       ),
     );
@@ -61,13 +82,10 @@ class _PurpleBox extends StatelessWidget {
 
   // Método que devuelve el widget BoxDecoration con la configuración establecida.
   BoxDecoration _purpleBackground() => const BoxDecoration(
-    gradient: LinearGradient(
-      colors: [
+          gradient: LinearGradient(colors: [
         Color.fromRGBO(63, 63, 156, 1),
         Color.fromRGBO(90, 70, 178, 1)
-      ]
-    )
-  );
+      ]));
 }
 
 // Widget extaído que compone cada una de las burbujas del fondo superior.
@@ -82,9 +100,8 @@ class _Bubble extends StatelessWidget {
       height: 100,
       // Utilizo el decoration para poder poner atributos tales como BorderRadius (necesario para hacerlo redondo).
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        color: const Color.fromRGBO(255, 255, 255, 0.1)
-      ),
+          borderRadius: BorderRadius.circular(100),
+          color: const Color.fromRGBO(255, 255, 255, 0.1)),
     );
   }
 }
@@ -103,11 +120,14 @@ class _HeaderIcon extends StatelessWidget {
         // Ocupa el ancho disponible.
         width: double.infinity,
         // Margen superior de 35 px.
-        margin: EdgeInsets.only( top: 35 ),
+        margin: EdgeInsets.only(top: 35),
         // Icono de la persona, en color blanco y con tamaño 100.
-        child: Icon(Icons.person_pin, color: Colors.white, size: 100,),
+        child: Icon(
+          Icons.person_pin,
+          color: Colors.white,
+          size: 100,
+        ),
       ),
     );
   }
 }
-
