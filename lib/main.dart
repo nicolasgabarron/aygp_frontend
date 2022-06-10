@@ -11,7 +11,10 @@ void main() async {
   // Inicializo las SharedPreferences.
   await Preferences.init();
 
-  runApp(MultiProvider(providers: [
+  runApp(
+      // Utilizo MultiProvider ya que necesito utilizar un Provider globalizado,
+      // el cual gestiona el tema.
+      MultiProvider(providers: [
     ChangeNotifierProvider(
       create: (context) => ThemeProvider(isDarkMode: Preferences.isDarkMode),
     )

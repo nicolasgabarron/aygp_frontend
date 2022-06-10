@@ -8,9 +8,14 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Center: Centrará todos los elementos en la pantalla.
       body: Center(
+        // Fondo superior de la pantalla (creado a mano).
         child: AuthBackground(
+            // SingleChildScrollView: en caso de que se quede sin espacio (como
+            // cuando muestra el teclado, que permita el scroll).
             child: SingleChildScrollView(
+          // Column: Contiene el formulario.
           child: Column(
             children: [
               SizedBox(
@@ -57,6 +62,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
+// Formulario de login.
 class _LoginForm extends StatelessWidget {
   const _LoginForm({Key? key}) : super(key: key);
 
@@ -67,19 +73,25 @@ class _LoginForm extends StatelessWidget {
     return Container(
       child: Form(
           key: loginForm.formKey,
+          // Valida a cada interacción del usuario.
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
               // Campo EMAIL.
               TextFormField(
                 autocorrect: false,
+
                 keyboardType: TextInputType.emailAddress,
+
                 // Apariencia modularizada en clase InputDecorations.
+                // TODO: Revisar por qué en modo oscuro no se visualiza correctamente.
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'correo@dominio.com',
                     labelText: 'Correo Electrónico',
                     prefixIcon: Icons.alternate_email),
+
                 // Validación del campo.
+                // Utiliza REGEX.
                 validator: (value) {
                   String pattern =
                       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -105,7 +117,7 @@ class _LoginForm extends StatelessWidget {
                     labelText: 'Contraseña',
                     prefixIcon: Icons.password),
                 validator: (value) {
-                  if(value!= null && value.isEmpty) {
+                  if (value != null && value.isEmpty) {
                     return 'Debe introducir una contraseña.';
                   }
                 },
@@ -115,6 +127,7 @@ class _LoginForm extends StatelessWidget {
                 height: 25,
               ),
 
+              // Botón de ENTRAR.
               MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -129,10 +142,9 @@ class _LoginForm extends StatelessWidget {
                   FocusScope.of(context).unfocus();
 
                   // Si el formulario es válido...
-                  if(loginForm.isValidForm()){
+                  if (loginForm.isValidForm()) {
                     Navigator.pushReplacementNamed(context, 'base');
                   }
-
                 },
               )
             ],
