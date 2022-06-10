@@ -7,6 +7,7 @@ class Preferences {
   static String _name = '';
   static String _surname = '';
   static bool _isDarkMode = false;
+  // TODO: JWT.
 
   // Método asíncrono que inicializa la instancia global (singleton) de getInstance().
   static Future init() async {
