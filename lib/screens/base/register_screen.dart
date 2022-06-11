@@ -53,7 +53,10 @@ class RegisterScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              Text('¿Ya eres usuario?'),
+              TextButton(
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, 'login'),
+                  child: Text('Ya soy usuario')),
               SizedBox(
                 height: 40,
               ),
@@ -242,7 +245,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                 disabledColor: Colors.grey,
                 color: Colors.blue[800],
                 child: Text(
-                  'Entrar',
+                  'Registrarse',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
