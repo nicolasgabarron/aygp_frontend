@@ -132,7 +132,7 @@ class _LoginForm extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 disabledColor: Colors.grey,
-                color: Colors.deepPurple,
+                color: Colors.blue[800],
                 child: Text(
                   'Entrar',
                   style: TextStyle(color: Colors.white),
