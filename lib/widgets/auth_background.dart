@@ -20,8 +20,7 @@ class AuthBackground extends StatelessWidget {
           // Contenedor de la parte superior.
           _PurpleBox(),
 
-          // Icono de la persona.
-          // TODO: Reemplazar por icono de la aplicación.
+          // Icono de la aplicación.
           _HeaderIcon(),
 
           // Tarjeta de Login.
@@ -46,7 +45,7 @@ class _PurpleBox extends StatelessWidget {
       // Ocupa el 40% del alto de la pantalla.
       height: size.height * 0.4,
       // Establezco el fondo en un degradado.
-      decoration: _purpleBackground(),
+      decoration: _blueBackgrund(),
       // El stack contendrá las burbujas.
       child: Stack(
         children: const [
@@ -81,10 +80,10 @@ class _PurpleBox extends StatelessWidget {
   }
 
   // Método que devuelve el widget BoxDecoration con la configuración establecida.
-  BoxDecoration _purpleBackground() => const BoxDecoration(
+  BoxDecoration _blueBackgrund() => const BoxDecoration(
           gradient: LinearGradient(colors: [
-        Color.fromRGBO(63, 63, 156, 1),
-        Color.fromRGBO(90, 70, 178, 1)
+        Color.fromARGB(255, 50, 50, 213),
+        Color.fromARGB(255, 26, 0, 139)
       ]));
 }
 
@@ -117,17 +116,16 @@ class _HeaderIcon extends StatelessWidget {
     // Utilizo SafeArea para no crear conflictos con dispositivos con Notch.
     return SafeArea(
       child: Container(
-        // Ocupa el ancho disponible.
-        width: double.infinity,
-        // Margen superior de 35 px.
-        margin: EdgeInsets.only(top: 35),
-        // Icono de la persona, en color blanco y con tamaño 100.
-        child: Icon(
-          Icons.person_pin,
-          color: Colors.white,
-          size: 100,
-        ),
-      ),
+          // Ocupa el ancho disponible.
+          width: double.infinity,
+          // Margen superior de 35 px.
+          margin: EdgeInsets.only(top: 35),
+          // Icono de la persona, en color blanco y con tamaño 100.
+          child: Image(
+            image: AssetImage('assets/app_icon.png'),
+            width: 150,
+            height: 150,
+          )),
     );
   }
 }
