@@ -145,7 +145,11 @@ class _RegisterFormState extends State<_RegisterForm> {
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime(1950),
-                      lastDate: DateTime.now());
+                      lastDate: DateTime.now(),
+                      helpText: 'Fecha de nacimiento',
+                      // locale: Locale..., TODO: Implementar lenguaje ESPAÑOL.
+                      cancelText: 'Cancelar',
+                      confirmText: 'Aceptar');
 
                   if (selectedDate != null) {
                     String formattedDate =
@@ -247,6 +251,8 @@ class _RegisterFormState extends State<_RegisterForm> {
 
                   // Si el formulario es válido...
                   if (loginForm.isValidForm()) {
+                    // TODO: Enviar POST al servidor para crear el usuario.
+
                     Navigator.pushReplacementNamed(context, 'base');
                   }
                 },
