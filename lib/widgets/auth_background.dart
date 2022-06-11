@@ -20,8 +20,7 @@ class AuthBackground extends StatelessWidget {
           // Contenedor de la parte superior.
           _PurpleBox(),
 
-          // Icono de la persona.
-          // TODO: Reemplazar por icono de la aplicación.
+          // Icono de la aplicación.
           _HeaderIcon(),
 
           // Tarjeta de Login.
@@ -117,17 +116,16 @@ class _HeaderIcon extends StatelessWidget {
     // Utilizo SafeArea para no crear conflictos con dispositivos con Notch.
     return SafeArea(
       child: Container(
-        // Ocupa el ancho disponible.
-        width: double.infinity,
-        // Margen superior de 35 px.
-        margin: EdgeInsets.only(top: 35),
-        // Icono de la persona, en color blanco y con tamaño 100.
-        child: Icon(
-          Icons.person_pin,
-          color: Colors.white,
-          size: 100,
-        ),
-      ),
+          // Ocupa el ancho disponible.
+          width: double.infinity,
+          // Margen superior de 35 px.
+          margin: EdgeInsets.only(top: 35),
+          // Icono de la persona, en color blanco y con tamaño 100.
+          child: Image(
+            image: AssetImage('assets/app_icon.png'),
+            width: 150,
+            height: 150,
+          )),
     );
   }
 }
