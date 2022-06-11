@@ -45,7 +45,7 @@ class _PurpleBox extends StatelessWidget {
       // Ocupa el 40% del alto de la pantalla.
       height: size.height * 0.4,
       // Establezco el fondo en un degradado.
-      decoration: _purpleBackground(),
+      decoration: _blueBackgrund(),
       // El stack contendrá las burbujas.
       child: Stack(
         children: const [
@@ -80,10 +80,10 @@ class _PurpleBox extends StatelessWidget {
   }
 
   // Método que devuelve el widget BoxDecoration con la configuración establecida.
-  BoxDecoration _purpleBackground() => const BoxDecoration(
+  BoxDecoration _blueBackgrund() => const BoxDecoration(
           gradient: LinearGradient(colors: [
-        Color.fromRGBO(63, 63, 156, 1),
-        Color.fromRGBO(90, 70, 178, 1)
+        Color.fromARGB(255, 50, 50, 213),
+        Color.fromARGB(255, 26, 0, 139)
       ]));
 }
 
