@@ -1,5 +1,6 @@
 import 'package:aygp_frontend/providers/theme_provider.dart';
 import 'package:aygp_frontend/providers/ui_provider.dart';
+import 'package:aygp_frontend/screens/base/register_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (context) => LoginScreen(),
           'base': (context) => BaseScreen(),
+          'register': (context) => RegisterScreen()
         },
         theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),

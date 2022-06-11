@@ -50,7 +50,11 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              Text('Crear nueva cuenta'),
+              TextButton(
+                  onPressed: () =>
+                      Navigator.pushReplacementNamed(context, 'register'),
+                  child: Text('Crear una nueva cuenta')),
+
               SizedBox(
                 height: 40,
               ),
