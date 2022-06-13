@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService extends ChangeNotifier {
   // Propiedades.
-  final String _baseUrl = 'localhost:9090/api/auth';
+  final String _baseUrl = 'localhost:9090';
 
   Future<String?> createUser(String name, String surname, DateTime date,
       String email, String username, String password) async {
@@ -20,10 +21,14 @@ class AuthService extends ChangeNotifier {
     };
 
     // Endpoint final.
-    final url = Uri.http(_baseUrl, '/signup');
+    final url = Uri.http(_baseUrl, 'api/auth/signup');
+
+    // Headers.
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
 
     // Ejecuto la petición.
-    final response = await http.post(url, body: json.encode(registerData));
+    final response =
+        await http.post(url, headers: headers, body: json.encode(registerData));
 
     final Map<String, dynamic> recievedData = json.decode(response.body);
 
@@ -39,15 +44,19 @@ class AuthService extends ChangeNotifier {
     };
 
     // Endpoint final.
-    final url = Uri.http(_baseUrl, '/signin');
+    final url = Uri.http(_baseUrl, '/api/auth/signin');
+
+    // Headers.
+    final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
 
     // Ejecuto la petición.
-    final response = await http.post(url, body: json.encode(loginData));
+    final response =
+        await http.post(url, headers: headers, body: json.encode(loginData));
 
     final Map<String, dynamic> recievedData = json.decode(response.body);
 
     final String jwt = response.headers[
-        'Set-Cookie']!; // Si hace login, este header va a venir si o si.
+        'set-cookie']!; // Si hace login, este header va a venir si o si.
 
     return jwt;
   }
