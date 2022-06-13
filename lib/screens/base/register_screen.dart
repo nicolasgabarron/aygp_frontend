@@ -1,4 +1,5 @@
 import 'package:aygp_frontend/providers/login_form_provider.dart';
+import 'package:aygp_frontend/providers/register_form_provider.dart';
 import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:aygp_frontend/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -41,8 +42,7 @@ class RegisterScreen extends StatelessWidget {
 
                     // Formulario.
                     ChangeNotifierProvider(
-                      create: (context) =>
-                          LoginFormProvider(), // TODO: Cambiar por un nuevo RegisterFormProvider.
+                      create: (context) => RegisterFormProvider(),
                       child: _RegisterForm(),
                     ),
                   ],
@@ -92,11 +92,11 @@ class _RegisterFormState extends State<_RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loginForm = Provider.of<LoginFormProvider>(context);
+    final registerForm = Provider.of<RegisterFormProvider>(context);
 
     return Container(
       child: Form(
-          key: loginForm.formKey,
+          key: registerForm.formKey,
           // Valida a cada interacción del usuario.
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
@@ -259,7 +259,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                   FocusScope.of(context).unfocus();
 
                   // Si el formulario es válido...
-                  if (loginForm.isValidForm()) {
+                  if (registerForm.isValidForm()) {
                     // TODO: Enviar POST al servidor para crear el usuario.
 
                     Navigator.pushReplacementNamed(context, 'base');
