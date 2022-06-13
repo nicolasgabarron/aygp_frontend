@@ -83,6 +83,7 @@ class _RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<_RegisterForm> {
   // Propiedades.
   TextEditingController datecontroller = new TextEditingController();
+  String fechaNacimiento = '';
 
   @override
   void initState() {
@@ -108,6 +109,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Introduzca su nombre',
                     labelText: 'Nombre',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.nombre = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debes introducir el nombre.';
@@ -128,6 +130,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Introduzca sus apellidos',
                     labelText: 'Apellidos',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.apellidos = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debes introducir los apellidos.';
@@ -188,6 +191,8 @@ class _RegisterFormState extends State<_RegisterForm> {
                     labelText: 'Correo Electrónico',
                     prefixIcon: Icons.alternate_email),
 
+                onChanged: (value) => registerForm.email = value,
+
                 // Validación del campo.
                 // Utiliza REGEX.
                 validator: (value) {
@@ -213,6 +218,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Nombre de usuario',
                     labelText: 'Nombre de usuario',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.username = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debe introducir un nombre de usuario.';
@@ -233,6 +239,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Contaseña',
                     labelText: 'Contraseña',
                     prefixIcon: Icons.password),
+                onChanged: (value) => registerForm.password = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debe introducir una contraseña.';
@@ -257,6 +264,10 @@ class _RegisterFormState extends State<_RegisterForm> {
                 onPressed: () async {
                   // Oculto el teclado.
                   FocusScope.of(context).unfocus();
+
+                  // Asigno la fecha en el RegisterFormProvider, ya que al utilizar el calendario embebido,
+                  // el evento onChange no funciona correctamente.
+                  registerForm.fechaNacimiento = datecontroller.text;
 
                   // Si el formulario es válido...
                   if (registerForm.isValidForm()) {
