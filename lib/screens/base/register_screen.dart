@@ -51,12 +51,18 @@ class RegisterScreen extends StatelessWidget {
 
               // Botón de REGISTRO.
               SizedBox(
-                height: 40,
+                height: 25,
               ),
               TextButton(
                   onPressed: () =>
                       Navigator.pushReplacementNamed(context, 'login'),
-                  child: Text('Ya soy usuario')),
+                  style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(Colors.blue[80]),
+                      shape: MaterialStateProperty.all(StadiumBorder())),
+                  child: Text(
+                    'Ya soy usuario',
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  )),
               SizedBox(
                 height: 40,
               ),
