@@ -1,4 +1,5 @@
 import 'package:aygp_frontend/providers/login_form_provider.dart';
+import 'package:aygp_frontend/services/auth_service.dart';
 import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:aygp_frontend/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +153,22 @@ class _LoginForm extends StatelessWidget {
 
                   // Si el formulario es válido...
                   if (loginForm.isValidForm()) {
-                    Navigator.pushReplacementNamed(context, 'base');
+                    // Obtengo el Servicio de autenticación.
+                    final authService =
+                        Provider.of<AuthService>(context, listen: false);
+
+                    // Recupero la respuesta de ejecutar el LOGIN.
+                    final String? jwt = await authService.loginUser(
+                        loginForm.username, loginForm.password);
+
+                    // Si es diferente a error (mensaje establecido en AuthService. Posteriormente cambiará)...
+                    if (jwt != 'error') {
+                      print(jwt);
+
+                      Navigator.pushReplacementNamed(context, 'base');
+                    } else {
+                      // Lanzar MENSAJE DE ERROR VISUAL.
+                    }
                   }
                 },
               )

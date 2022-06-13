@@ -12,16 +12,20 @@ class AuthService extends ChangeNotifier {
       String email, String username, String password) async {
     // JSON de SALIDA con los datos introducidos por el usuario.
     final Map<String, dynamic> registerData = {
-      'email': email,
-      'username': username,
-      'password': password,
-      'nombre': name,
-      'apellidos': surname,
-      'fechaNacimiento': date
+      "username": username,
+      "email": email,
+      "password": password,
+      "nombre": name,
+      "apellidos": surname,
+      "fechaNacimiento": date,
+      "ciudadNacimiento": "No definida",
+      "roles": ["usuario"]
     };
 
+    print('$username - $email - $password - $name - $surname - $date - $date');
+
     // Endpoint final.
-    final url = Uri.http(_baseUrl, 'api/auth/signup');
+    final url = Uri.http(_baseUrl, '/api/auth/signup');
 
     // Headers.
     final headers = {HttpHeaders.contentTypeHeader: 'application/json'};
@@ -31,7 +35,7 @@ class AuthService extends ChangeNotifier {
         await http.post(url, headers: headers, body: json.encode(registerData));
 
     // Compruebo el STATUS CODE para saber si ha ido correctamente la petición.
-    if (response == 201) {
+    if (response.statusCode == 201) {
       final Map<String, dynamic> recievedData = json.decode(response.body);
 
       // IMPRIMO TEMPORALMENTE LOS DATOS.

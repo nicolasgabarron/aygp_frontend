@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../services/auth_service.dart';
+
 class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -148,7 +150,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               TextFormField(
                 controller: datecontroller,
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'dd/mm/yyyy',
+                    hintText: 'dd-mm-yyyy',
                     labelText: 'Fecha de nacimiento',
                     prefixIcon: Icons.date_range),
                 readOnly: true,
@@ -165,7 +167,7 @@ class _RegisterFormState extends State<_RegisterForm> {
 
                   if (selectedDate != null) {
                     String formattedDate =
-                        DateFormat('dd/MM/yyyy').format(selectedDate);
+                        DateFormat('dd-MM-yyyy').format(selectedDate);
 
                     datecontroller.text = formattedDate;
 
@@ -271,9 +273,24 @@ class _RegisterFormState extends State<_RegisterForm> {
 
                   // Si el formulario es válido...
                   if (registerForm.isValidForm()) {
-                    // TODO: Enviar POST al servidor para crear el usuario.
+                    final authService =
+                        Provider.of<AuthService>(context, listen: false);
 
-                    Navigator.pushReplacementNamed(context, 'base');
+                    String? userDetails = await authService.createUser(
+                        registerForm.nombre,
+                        registerForm.apellidos,
+                        registerForm.fechaNacimiento,
+                        registerForm.email,
+                        registerForm.username,
+                        registerForm.password);
+
+                    print(userDetails);
+
+                    if (userDetails != 'error') {
+                      Navigator.pushReplacementNamed(context, 'base');
+                    } else {
+                      // Lanzar MENSAJE DE ERROR VISUAL.
+                    }
                   }
                 },
               )
