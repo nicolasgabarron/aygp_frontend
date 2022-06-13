@@ -88,7 +88,7 @@ class _LoginForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
-              // Campo EMAIL.
+              // Campo USERNAME.
               TextFormField(
                 autocorrect: false,
 
@@ -101,6 +101,8 @@ class _LoginForm extends StatelessWidget {
                     labelText: 'Nombre de usuario',
                     prefixIcon: Icons.person),
 
+                // Sincronizo el valor del campo en el provider.
+                onChanged: (value) => loginForm.username = value,
                 // Validación del campo.
                 validator: (value) {
                   if (value != null && value.length < 3) {
@@ -122,6 +124,7 @@ class _LoginForm extends StatelessWidget {
                     hintText: 'Contaseña',
                     labelText: 'Contraseña',
                     prefixIcon: Icons.password),
+                onChanged: (value) => loginForm.password = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debe introducir una contraseña.';
