@@ -1,7 +1,7 @@
 import 'package:aygp_frontend/providers/theme_provider.dart';
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/base/register_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
+import 'package:aygp_frontend/services/auth_service.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +29,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => new UiProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => new AuthService(),
         )
       ],
       child: MaterialApp(

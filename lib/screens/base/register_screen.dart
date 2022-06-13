@@ -1,10 +1,13 @@
 import 'package:aygp_frontend/providers/login_form_provider.dart';
+import 'package:aygp_frontend/providers/register_form_provider.dart';
 import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:aygp_frontend/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
+import '../../services/auth_service.dart';
 
 class RegisterScreen extends StatelessWidget {
   @override
@@ -41,8 +44,7 @@ class RegisterScreen extends StatelessWidget {
 
                     // Formulario.
                     ChangeNotifierProvider(
-                      create: (context) =>
-                          LoginFormProvider(), // TODO: Cambiar por un nuevo RegisterFormProvider.
+                      create: (context) => RegisterFormProvider(),
                       child: _RegisterForm(),
                     ),
                   ],
@@ -83,6 +85,7 @@ class _RegisterForm extends StatefulWidget {
 class _RegisterFormState extends State<_RegisterForm> {
   // Propiedades.
   TextEditingController datecontroller = new TextEditingController();
+  String fechaNacimiento = '';
 
   @override
   void initState() {
@@ -92,11 +95,11 @@ class _RegisterFormState extends State<_RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    final loginForm = Provider.of<LoginFormProvider>(context);
+    final registerForm = Provider.of<RegisterFormProvider>(context);
 
     return Container(
       child: Form(
-          key: loginForm.formKey,
+          key: registerForm.formKey,
           // Valida a cada interacción del usuario.
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
@@ -108,6 +111,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Introduzca su nombre',
                     labelText: 'Nombre',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.nombre = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debes introducir el nombre.';
@@ -128,6 +132,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Introduzca sus apellidos',
                     labelText: 'Apellidos',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.apellidos = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debes introducir los apellidos.';
@@ -145,7 +150,7 @@ class _RegisterFormState extends State<_RegisterForm> {
               TextFormField(
                 controller: datecontroller,
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'dd/mm/yyyy',
+                    hintText: 'dd-mm-yyyy',
                     labelText: 'Fecha de nacimiento',
                     prefixIcon: Icons.date_range),
                 readOnly: true,
@@ -162,7 +167,7 @@ class _RegisterFormState extends State<_RegisterForm> {
 
                   if (selectedDate != null) {
                     String formattedDate =
-                        DateFormat('dd/MM/yyyy').format(selectedDate);
+                        DateFormat('dd-MM-yyyy').format(selectedDate);
 
                     datecontroller.text = formattedDate;
 
@@ -187,6 +192,8 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'correo@dominio.com',
                     labelText: 'Correo Electrónico',
                     prefixIcon: Icons.alternate_email),
+
+                onChanged: (value) => registerForm.email = value,
 
                 // Validación del campo.
                 // Utiliza REGEX.
@@ -213,6 +220,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Nombre de usuario',
                     labelText: 'Nombre de usuario',
                     prefixIcon: Icons.person),
+                onChanged: (value) => registerForm.username = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debe introducir un nombre de usuario.';
@@ -233,6 +241,7 @@ class _RegisterFormState extends State<_RegisterForm> {
                     hintText: 'Contaseña',
                     labelText: 'Contraseña',
                     prefixIcon: Icons.password),
+                onChanged: (value) => registerForm.password = value,
                 validator: (value) {
                   if (value != null && value.isEmpty) {
                     return 'Debe introducir una contraseña.';
@@ -258,11 +267,30 @@ class _RegisterFormState extends State<_RegisterForm> {
                   // Oculto el teclado.
                   FocusScope.of(context).unfocus();
 
-                  // Si el formulario es válido...
-                  if (loginForm.isValidForm()) {
-                    // TODO: Enviar POST al servidor para crear el usuario.
+                  // Asigno la fecha en el RegisterFormProvider, ya que al utilizar el calendario embebido,
+                  // el evento onChange no funciona correctamente.
+                  registerForm.fechaNacimiento = datecontroller.text;
 
-                    Navigator.pushReplacementNamed(context, 'base');
+                  // Si el formulario es válido...
+                  if (registerForm.isValidForm()) {
+                    final authService =
+                        Provider.of<AuthService>(context, listen: false);
+
+                    String? userDetails = await authService.createUser(
+                        registerForm.nombre,
+                        registerForm.apellidos,
+                        registerForm.fechaNacimiento,
+                        registerForm.email,
+                        registerForm.username,
+                        registerForm.password);
+
+                    print(userDetails);
+
+                    if (userDetails != 'error') {
+                      Navigator.pushReplacementNamed(context, 'base');
+                    } else {
+                      // Lanzar MENSAJE DE ERROR VISUAL.
+                    }
                   }
                 },
               )
