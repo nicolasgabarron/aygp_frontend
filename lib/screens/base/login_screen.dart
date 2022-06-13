@@ -46,10 +46,11 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
 
-              // Botón de REGISTRO.
               SizedBox(
                 height: 40,
               ),
+
+              // Botón de REGISTRO.
               TextButton(
                   onPressed: () =>
                       Navigator.pushReplacementNamed(context, 'register'),
@@ -91,25 +92,20 @@ class _LoginForm extends StatelessWidget {
               TextFormField(
                 autocorrect: false,
 
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
 
                 // Apariencia modularizada en clase InputDecorations.
                 // TODO: Revisar por qué en modo oscuro no se visualiza correctamente.
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'correo@dominio.com',
-                    labelText: 'Correo Electrónico',
-                    prefixIcon: Icons.alternate_email),
+                    hintText: 'nombreusuario',
+                    labelText: 'Nombre de usuario',
+                    prefixIcon: Icons.person),
 
                 // Validación del campo.
-                // Utiliza REGEX.
                 validator: (value) {
-                  String pattern =
-                      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-                  RegExp regExp = new RegExp(pattern);
-
-                  return regExp.hasMatch(value ?? '')
-                      ? null
-                      : 'El correo no es válido.';
+                  if (value != null && value.length < 3) {
+                    return 'El nombre de usuario debe tener al menos 3 caracteres.';
+                  }
                 },
               ),
 
