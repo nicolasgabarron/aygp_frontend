@@ -39,7 +39,7 @@ class AuthService extends ChangeNotifier {
     };
 
     // Endpoint final.
-    final url = Uri.http(_baseUrl, '/singin');
+    final url = Uri.http(_baseUrl, '/signin');
 
     // Ejecuto la petición.
     final response = await http.post(url, body: json.encode(loginData));
