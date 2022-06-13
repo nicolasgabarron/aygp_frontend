@@ -30,10 +30,15 @@ class AuthService extends ChangeNotifier {
     final response =
         await http.post(url, headers: headers, body: json.encode(registerData));
 
-    final Map<String, dynamic> recievedData = json.decode(response.body);
+    // Compruebo el STATUS CODE para saber si ha ido correctamente la petición.
+    if (response == 201) {
+      final Map<String, dynamic> recievedData = json.decode(response.body);
 
-    // IMPRIMO TEMPORALMENTE LOS DATOS.
-    return recievedData.toString();
+      // IMPRIMO TEMPORALMENTE LOS DATOS.
+      return recievedData.toString();
+    } else {
+      return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
+    }
   }
 
   Future<String?> loginUser(String username, String password) async {
@@ -53,11 +58,16 @@ class AuthService extends ChangeNotifier {
     final response =
         await http.post(url, headers: headers, body: json.encode(loginData));
 
-    final Map<String, dynamic> recievedData = json.decode(response.body);
+    // Compruebo el STATUS CODE para saber si ha ido correctamente la petición.
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> recievedData = json.decode(response.body);
 
-    final String jwt = response.headers[
-        'set-cookie']!; // Si hace login, este header va a venir si o si.
+      final String jwt = response.headers[
+          'set-cookie']!; // Si hace login, este header va a venir si o si.
 
-    return jwt;
+      return jwt;
+    } else {
+      return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
+    }
   }
 }
