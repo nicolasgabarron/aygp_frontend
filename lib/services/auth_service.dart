@@ -10,7 +10,7 @@ class AuthService extends ChangeNotifier {
   final String _baseUrl = 'localhost:9090';
 
   // SecureStorage donde almacenaremos el JWT.
-  final storage = new FlutterSecureStorage();
+  final secureStorage = new FlutterSecureStorage();
 
   Future<String?> createUser(String name, String surname, String date,
       String email, String username, String password) async {
@@ -76,8 +76,13 @@ class AuthService extends ChangeNotifier {
       if (jwt != null) {
         var splittedCookies = jwt.split(';');
 
-        // Substring para quitar la cabecera "nicogbdev_jwt=".
-        return splittedCookies[0].substring(14);
+        // Substring para quitar la cabecera "nicogbdev_jwt="
+        String shortJwt = splittedCookies[0].substring(14);
+
+        // Guardo el JWT en el SecureStorage.
+        await secureStorage.write(key: 'nicogbdev_jwt', value: shortJwt);
+
+        return shortJwt;
       }
     } else {
       return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
