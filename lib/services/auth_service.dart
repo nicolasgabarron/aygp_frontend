@@ -43,6 +43,9 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 201) {
       final Map<String, dynamic> recievedData = json.decode(response.body);
 
+      // Muestro mensaje de registro satisfactorio.
+      NotificationsService.showSnackbar('¡Bienvenido!', false);
+
       // IMPRIMO TEMPORALMENTE LOS DATOS.
       return recievedData.toString();
     } else {
@@ -109,9 +112,17 @@ class AuthService extends ChangeNotifier {
       // Limpio el JWT almacenado en el SecureStorage.
       secureStorage.delete(key: 'nicogbdev_jwt');
 
+      // Muestro mensaje de Logout satisfactorio.
+      NotificationsService.showSnackbar(
+          'Has salido correctamente. ¡Hasta pronto!', false);
+
       // Devuelvo true en señal de que la petición se ha ejecutado correctamente.
       return true;
     } else {
+      // Muestro mensaje de Logout satisfactorio.
+      NotificationsService.showSnackbar(
+          'No se ha podido cerrar la sesión. Inténtelo de nuevo', true);
+
       return false;
     }
   }
