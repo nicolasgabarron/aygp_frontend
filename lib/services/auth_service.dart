@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aygp_frontend/services/notifications_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -45,6 +46,9 @@ class AuthService extends ChangeNotifier {
       // IMPRIMO TEMPORALMENTE LOS DATOS.
       return recievedData.toString();
     } else {
+      NotificationsService.showSnackbar(
+          'No se ha podido crear la cuenta. Error: $response.body', true);
+
       return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
     }
   }
@@ -82,9 +86,14 @@ class AuthService extends ChangeNotifier {
         // Guardo el JWT en el SecureStorage.
         await secureStorage.write(key: 'nicogbdev_jwt', value: shortJwt);
 
+        // Muestro SnackBar satisfacotorio.
+        NotificationsService.showSnackbar('¡Login satisfactorio!', false);
+
         return shortJwt;
       }
     } else {
+      NotificationsService.showSnackbar('Revise las credenciales.', true);
+
       return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
     }
   }
