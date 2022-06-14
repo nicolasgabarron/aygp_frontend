@@ -106,4 +106,11 @@ class AuthService extends ChangeNotifier {
       return false;
     }
   }
+
+  Future<String> readToken() async {
+    // Compruebo si existe la propiedad del JWT en el SecureStorage.
+    // En caso negativo, devuelvo un String vacío ya que no puedo trabajar
+    // a posteriori con nulos.
+    return await secureStorage.read(key: 'nicogbdev_jwt') ?? '';
+  }
 }
