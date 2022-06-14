@@ -1,4 +1,5 @@
 import 'package:aygp_frontend/providers/theme_provider.dart';
+import 'package:aygp_frontend/services/auth_service.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -44,7 +45,40 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               // Redibujo la pantalla local.
               setState(() {});
-            })
+            }),
+
+        // Separador (empuja el botón al final de la pantalla).
+        Expanded(
+          child: Container(),
+        ),
+
+        // BOTON Cerrar sesión.
+        TextButton(
+            onPressed: () async {
+              final authService =
+                  Provider.of<AuthService>(context, listen: false);
+
+              final bool? logoutResponse = await authService.logoutUser();
+
+              if (logoutResponse == true) {
+                // TODO: Lanzar notificación de logout satisfactorio.
+
+                // Navego a la pantalla de login.
+                Navigator.pushReplacementNamed(context, 'login');
+              }
+            },
+            style: ButtonStyle(
+                overlayColor: MaterialStateProperty.all(Colors.blue[80]),
+                shape: MaterialStateProperty.all(StadiumBorder())),
+            child: Text(
+              'Cerrar sesión',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            )),
+
+        // SizedBox para separar el botón del final de la pantalla.
+        SizedBox(
+          height: 15,
+        )
       ],
     );
   }
