@@ -88,4 +88,22 @@ class AuthService extends ChangeNotifier {
       return 'error'; // TODO: Cambiar por mensaje con más información (quizás el propio status code.)
     }
   }
+
+  Future<bool?> logoutUser() async {
+    // Endpoint final.
+    final url = Uri.http(_baseUrl, '/api/auth/logout');
+
+    // Ejecuto la petición.
+    final response = await http.post(url);
+
+    if (response.statusCode == 200) {
+      // Limpio el JWT almacenado en el SecureStorage.
+      secureStorage.delete(key: 'nicogbdev_jwt');
+
+      // Devuelvo true en señal de que la petición se ha ejecutado correctamente.
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
