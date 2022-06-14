@@ -37,11 +37,12 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ayuda y Gestión Psicológica',
-        initialRoute: 'login',
+        initialRoute: 'checkjwt',
         routes: {
+          'checkjwt': (context) => CheckAuthScreen(),
           'login': (context) => LoginScreen(),
+          'register': (context) => RegisterScreen(),
           'base': (context) => BaseScreen(),
-          'register': (context) => RegisterScreen()
         },
         theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),
