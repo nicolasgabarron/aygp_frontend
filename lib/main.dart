@@ -39,9 +39,10 @@ class MyApp extends StatelessWidget {
         title: 'Ayuda y Gestión Psicológica',
         initialRoute: 'login',
         routes: {
+          'checkjwt': (context) => CheckAuthScreen(),
           'login': (context) => LoginScreen(),
+          'register': (context) => RegisterScreen(),
           'base': (context) => BaseScreen(),
-          'register': (context) => RegisterScreen()
         },
         theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),
