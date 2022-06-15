@@ -97,12 +97,19 @@ class DiaryService extends ChangeNotifier {
       final response =
           await http.post(url, headers: headers, body: diaryEntry.toJson());
 
-      // Notifico de que se ha realizado correctamente.
-      NotificationsService.showSnackbar(
-          'Entrada de diario creada satisfactoriamente.', false);
+      // Si la petición se ha ejecutado correctamente...
+      if (response.statusCode == 200) {
+        // Notifico de que se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Entrada de diario creada satisfactoriamente.', false);
 
-      // Añado a la lista de entradas locales la devuelta por el servidor.
-      diaryEntries.add(DiaryEntry.fromMap(json.decode(response.body)));
+        // Añado a la lista de entradas locales la devuelta por el servidor.
+        diaryEntries.add(DiaryEntry.fromMap(json.decode(response.body)));
+      } else {
+        // Notifico de que NO se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Ha ocurrido algún error creando la entrada de diario.', true);
+      }
     }
     // MODIFICACIÓN DE ENTRADA DE DIARIO.
     else {
@@ -123,18 +130,24 @@ class DiaryService extends ChangeNotifier {
       final response =
           await http.patch(url, headers: headers, body: diaryEntry.toJson());
 
-      // Notifico de que se ha realizado correctamente.
-      NotificationsService.showSnackbar(
-          'Entrada de diario actualizada satisfactoriamente.', false);
+      if (response.statusCode == 200) {
+        // Notifico de que se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Entrada de diario actualizada satisfactoriamente.', false);
 
-      // Actualizo la lista de la vista principal.
-      final findDiaryEntryIndex = this
-          .diaryEntries
-          .indexWhere((element) => element.id == diaryEntry.id);
-      this.diaryEntries[findDiaryEntryIndex] = diaryEntry;
+        // Actualizo la lista de la vista principal.
+        final findDiaryEntryIndex = this
+            .diaryEntries
+            .indexWhere((element) => element.id == diaryEntry.id);
+        this.diaryEntries[findDiaryEntryIndex] = diaryEntry;
 
-      isSaving = false;
-      notifyListeners();
+        isSaving = false;
+        notifyListeners();
+      } else {
+        // Notifico de que NO se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Ha ocurrido algún error actualizando la entrada de diario.', true);
+      }
     }
   }
 }
