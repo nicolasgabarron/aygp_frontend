@@ -76,6 +76,12 @@ class _DiaryForm extends StatelessWidget {
           // TITULO
           TextFormField(
             initialValue: diaryEntry.titulo,
+            onChanged: (value) => diaryEntry.titulo = value,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'El título es obligatorio.';
+              }
+            },
             decoration: InputDecorations.formInputDecoration(
                 hintText: 'Introduzca el título que quiere dar a la entrada'),
           ),
