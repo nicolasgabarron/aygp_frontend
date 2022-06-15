@@ -1,9 +1,36 @@
+import 'package:aygp_frontend/providers/diary_form_provider.dart';
+import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DiaryEditScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Recupero el DiaryService.
+    final diaryService = Provider.of<DiaryService>(context);
+
+    return ChangeNotifierProvider(
+        create: (context) => DiaryFormProvider(diaryService.selectedEntry),
+        child: _DiaryEditBody(
+          diaryService: diaryService,
+        ));
+  }
+}
+
+class _DiaryEditBody extends StatelessWidget {
+  // Recupero el DiaryService.
+  final diaryService;
+
+  const _DiaryEditBody({
+    Key? key,
+    required this.diaryService,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final diaryForm = Provider.of<DiaryFormProvider>(context);
+
     return Scaffold(
       appBar: AppBar(title: Text('Entrada de Diario')),
       body: SingleChildScrollView(child: _DiaryForm()),
@@ -24,6 +51,10 @@ class _DiaryForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Propiedades.
+    final diaryProvider = Provider.of<DiaryFormProvider>(context);
+    final diaryEntry = diaryProvider.diaryEntry;
+
     return Container(
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(),
@@ -44,6 +75,7 @@ class _DiaryForm extends StatelessWidget {
 
           // TITULO
           TextFormField(
+            initialValue: diaryEntry.titulo,
             decoration: InputDecorations.formInputDecoration(
                 hintText: 'Introduzca el título que quiere dar a la entrada'),
           ),
@@ -60,6 +92,7 @@ class _DiaryForm extends StatelessWidget {
 
           // CONTENIDO.
           TextFormField(
+            initialValue: diaryEntry.contenido,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             minLines: 10,
