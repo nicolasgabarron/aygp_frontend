@@ -30,30 +30,42 @@ class _DiaryForm extends StatelessWidget {
       width: double.infinity,
       child: Form(
           child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             height: 10,
           ),
 
+          // Header Título
+          Text(
+            'Título',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+
           // TITULO
           TextFormField(
-            decoration: InputDecorations.authInputDecoration(
-                hintText: 'Introduzca el título que quiere dar a la entrada',
-                labelText: 'Título'),
+            decoration: InputDecorations.formInputDecoration(
+                hintText: 'Introduzca el título que quiere dar a la entrada'),
           ),
 
           SizedBox(
             height: 25,
           ),
 
+          // Header Contenido.
+          Text(
+            'Contenido',
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+          ),
+
           // CONTENIDO.
           TextFormField(
             keyboardType: TextInputType.multiline,
             maxLines: null,
-            decoration: InputDecorations.authInputDecoration(
+            minLines: 10,
+            decoration: InputDecorations.formInputDecoration(
                 hintText:
-                    'Escriba aquí el contenido de la entrada de diario...',
-                labelText: 'Contenido'),
+                    'Escriba aquí el contenido de la entrada de diario...'),
           )
         ],
       )),
