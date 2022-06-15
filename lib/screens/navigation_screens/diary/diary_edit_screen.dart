@@ -60,60 +60,62 @@ class _DiaryForm extends StatelessWidget {
       decoration: BoxDecoration(),
       width: double.infinity,
       child: Form(
+          key: diaryProvider.formKey,
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 10,
-          ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
 
-          // Header Título
-          Text(
-            'Título',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-          ),
+              // Header Título
+              Text(
+                'Título',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
 
-          // TITULO
-          TextFormField(
-            initialValue: diaryEntry.titulo,
-            onChanged: (value) => diaryEntry.titulo = value,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'El título es obligatorio.';
-              }
-            },
-            decoration: InputDecorations.formInputDecoration(
-                hintText: 'Introduzca el título que quiere dar a la entrada'),
-          ),
+              // TITULO
+              TextFormField(
+                initialValue: diaryEntry.titulo,
+                onChanged: (value) => diaryEntry.titulo = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El título es obligatorio.';
+                  }
+                },
+                decoration: InputDecorations.formInputDecoration(
+                    hintText:
+                        'Introduzca el título que quiere dar a la entrada'),
+              ),
 
-          SizedBox(
-            height: 25,
-          ),
+              SizedBox(
+                height: 25,
+              ),
 
-          // Header Contenido.
-          Text(
-            'Contenido',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-          ),
+              // Header Contenido.
+              Text(
+                'Contenido',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
 
-          // CONTENIDO.
-          TextFormField(
-            initialValue: diaryEntry.contenido,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            minLines: 10,
-            onChanged: (value) => diaryEntry.contenido = value,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'El contenido es obligatorio.';
-              }
-            },
-            decoration: InputDecorations.formInputDecoration(
-                hintText:
-                    'Escriba aquí el contenido de la entrada de diario...'),
-          )
-        ],
-      )),
+              // CONTENIDO.
+              TextFormField(
+                initialValue: diaryEntry.contenido,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                minLines: 10,
+                onChanged: (value) => diaryEntry.contenido = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El contenido es obligatorio.';
+                  }
+                },
+                decoration: InputDecorations.formInputDecoration(
+                    hintText:
+                        'Escriba aquí el contenido de la entrada de diario...'),
+              )
+            ],
+          )),
     );
   }
 }
