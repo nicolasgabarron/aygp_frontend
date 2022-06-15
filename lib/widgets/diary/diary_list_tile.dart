@@ -1,6 +1,8 @@
 import 'package:aygp_frontend/models/diary_entry.dart';
+import 'package:aygp_frontend/providers/diary_form_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DiaryListTile extends StatelessWidget {
   // Propiedades.
@@ -23,8 +25,6 @@ class DiaryListTile extends StatelessWidget {
         ),
         title: Text(diaryEntry.titulo),
         subtitle: Text('Fecha: $fechaEntrada'),
-        onTap: () => Navigator.pushNamed(context, 'diaryedit'),
-        onLongPress: () => null, // TODO: Implementar diálogo de eliminar.
       ),
     );
   }
