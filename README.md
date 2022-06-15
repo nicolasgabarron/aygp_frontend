@@ -11,4 +11,6 @@ Aplicación móvil para el proyecto Ayuda y Gestión Psicológica.
   - AuthProvider.
   - SecureStorage (login, logout)
   - CheckAuthScreen (FutureBuilder con Microtasks).
+  - DiaryService.
+    - El método que trae la información desde el servidor lo he tenido que hacer más manual porque json.decode no lo hacía dinámicamente.
   
