@@ -7,6 +7,7 @@ Aplicación móvil para el proyecto Ayuda y Gestión Psicológica.
 
 ## A documentar...
   - Providers.
+    - Providers globales tienen característica LAZY. Hasta que no se necesitan, no se instancian.
   - AuthProvider.
   - SecureStorage (login, logout)
   - CheckAuthScreen (FutureBuilder con Microtasks).
