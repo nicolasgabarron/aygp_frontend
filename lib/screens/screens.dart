@@ -2,6 +2,7 @@ export 'package:aygp_frontend/screens/base/base_screen.dart';
 export 'package:aygp_frontend/screens/base/login_screen.dart';
 export 'package:aygp_frontend/screens/base/register_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/check_auth_screen.dart';
+export 'package:aygp_frontend/screens/navigation_screens/diary/diary_edit_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/diary/diary_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/home_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/reminders_screen.dart';
