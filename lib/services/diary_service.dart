@@ -66,6 +66,8 @@ class DiaryService extends ChangeNotifier {
     } else {
       NotificationsService.showSnackbar(
           'No se ha podido traer los datos del servidor.', true);
+
+      return this.diaryEntries;
     }
   }
 }
