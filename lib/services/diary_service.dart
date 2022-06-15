@@ -15,6 +15,7 @@ class DiaryService extends ChangeNotifier {
   final secureStorage = new FlutterSecureStorage();
   final List<DiaryEntry> diaryEntries = [];
   bool isLoading = true;
+  late DiaryEntry selectedEntry;
 
   DiaryService() {
     loadDiaryEntries();

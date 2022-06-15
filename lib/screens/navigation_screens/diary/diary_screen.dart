@@ -25,8 +25,18 @@ class DiaryScreen extends StatelessWidget {
       return Scaffold(
         body: ListView.builder(
             itemCount: diaryService.diaryEntries.length,
-            itemBuilder: (context, index) =>
-                DiaryListTile(diaryEntry: diaryService.diaryEntries[index])),
+            itemBuilder: (context, index) => GestureDetector(
+                  child: DiaryListTile(
+                      diaryEntry: diaryService.diaryEntries[index]),
+                  onTap: () {
+                    diaryService.selectedEntry =
+                        diaryService.diaryEntries[index].copy();
+
+                    Navigator.pushNamed(context, 'diaryedit');
+                  },
+                  onLongPress: () =>
+                      null, // TODO: Implementar diálogo de eliminar.
+                )),
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
       );
