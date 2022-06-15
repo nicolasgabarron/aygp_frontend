@@ -106,6 +106,11 @@ class DiaryService extends ChangeNotifier {
           'Entrada de diario actualizada satisfactoriamente.', false);
     }
 
+    // Actualizo la lista de la vista principal.
+    final findDiaryEntryIndex =
+        this.diaryEntries.indexWhere((element) => element.id == diaryEntry.id);
+    this.diaryEntries[findDiaryEntryIndex] = diaryEntry;
+
     isSaving = false;
     notifyListeners();
   }
