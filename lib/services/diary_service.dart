@@ -81,6 +81,28 @@ class DiaryService extends ChangeNotifier {
 
     // CREACIÓN DE ENTRADA DE DIARIO.
     if (diaryEntry.id == null) {
+      // Endpoint final
+      final url = Uri.http(_baseUrl, '/api/diario/entradas/nueva');
+
+      // Obtengo el JWT.
+      final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+      // Headers (mando el JWT y el Content/Type).
+      final headers = {
+        HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt',
+        HttpHeaders.contentTypeHeader: 'application/json'
+      };
+
+      // Realizo la petición.
+      final response =
+          await http.post(url, headers: headers, body: diaryEntry.toJson());
+
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Entrada de diario creada satisfactoriamente.', false);
+
+      // Añado a la lista de entradas locales la devuelta por el servidor.
+      diaryEntries.add(DiaryEntry.fromMap(json.decode(response.body)));
     }
     // MODIFICACIÓN DE ENTRADA DE DIARIO.
     else {
@@ -104,14 +126,15 @@ class DiaryService extends ChangeNotifier {
       // Notifico de que se ha realizado correctamente.
       NotificationsService.showSnackbar(
           'Entrada de diario actualizada satisfactoriamente.', false);
+
+      // Actualizo la lista de la vista principal.
+      final findDiaryEntryIndex = this
+          .diaryEntries
+          .indexWhere((element) => element.id == diaryEntry.id);
+      this.diaryEntries[findDiaryEntryIndex] = diaryEntry;
+
+      isSaving = false;
+      notifyListeners();
     }
-
-    // Actualizo la lista de la vista principal.
-    final findDiaryEntryIndex =
-        this.diaryEntries.indexWhere((element) => element.id == diaryEntry.id);
-    this.diaryEntries[findDiaryEntryIndex] = diaryEntry;
-
-    isSaving = false;
-    notifyListeners();
   }
 }
