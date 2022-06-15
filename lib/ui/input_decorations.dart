@@ -23,4 +23,22 @@ class InputDecorations {
               )
             : null);
   }
+
+  static InputDecoration formInputDecoration(
+      {required String hintText, String? labelText, IconData? prefixIcon}) {
+    return InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue[800]!)),
+        focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue[800]!, width: 2)),
+        hintText: hintText,
+        labelText: labelText ?? null,
+        labelStyle: TextStyle(color: Colors.blue[800], fontSize: 17),
+        prefixIcon: prefixIcon != null
+            ? Icon(
+                prefixIcon,
+                color: Colors.blue[800],
+              )
+            : null);
+  }
 }

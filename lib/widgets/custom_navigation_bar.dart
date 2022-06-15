@@ -21,8 +21,7 @@ class CustomNavigationBar extends StatelessWidget {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Inicio'),
 
           // ITEM DIARIO.
-          BottomNavigationBarItem(
-              icon: Icon(Icons.document_scanner), label: 'Diario'),
+          BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Diario'),
 
           // ITEM SUCESOS CLAVE.
           BottomNavigationBarItem(
