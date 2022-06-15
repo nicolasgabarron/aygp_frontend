@@ -1,3 +1,4 @@
+import 'package:aygp_frontend/models/diary_entry.dart';
 import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/widgets/diary/diary_list_tile.dart';
 
@@ -37,7 +38,10 @@ class DiaryScreen extends StatelessWidget {
                 )),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // diaryService.selectedEntry = DiaryEntry(usuarioId: usuarioId, titulo: titulo, fechaCreacion: fechaCreacion, contenido: contenido)
+              diaryService.selectedEntry =
+                  DiaryEntry(titulo: '', contenido: '');
+
+              Navigator.pushNamed(context, 'diaryedit');
             },
             child: Icon(Icons.add)),
       );
