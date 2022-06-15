@@ -1,4 +1,5 @@
 import 'package:aygp_frontend/services/diary_service.dart';
+import 'package:aygp_frontend/widgets/diary/diary_list_tile.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -23,12 +24,9 @@ class DiaryScreen extends StatelessWidget {
     else {
       return Scaffold(
         body: ListView.builder(
-          itemCount: 25,
-          itemBuilder: (context, index) => ListTile(
-            onTap: () => Navigator.pushNamed(context, 'diaryedit'),
-            title: Text('Item $index'),
-          ),
-        ),
+            itemCount: diaryService.diaryEntries.length,
+            itemBuilder: (context, index) =>
+                DiaryListTile(diaryEntry: diaryService.diaryEntries[index])),
         floatingActionButton:
             FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
       );
