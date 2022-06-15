@@ -2,14 +2,14 @@ import 'dart:convert';
 
 class DiaryEntry {
   DiaryEntry({
-    required this.id,
+    this.id,
     required this.usuarioId,
     required this.titulo,
     required this.fechaCreacion,
     required this.contenido,
   });
 
-  int id;
+  int? id;
   int usuarioId;
   String titulo;
   DateTime fechaCreacion;
