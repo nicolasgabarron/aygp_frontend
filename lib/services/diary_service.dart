@@ -15,6 +15,7 @@ class DiaryService extends ChangeNotifier {
   final secureStorage = new FlutterSecureStorage();
   final List<DiaryEntry> diaryEntries = [];
   bool isLoading = true;
+  bool isSaving = false;
   late DiaryEntry selectedEntry;
 
   DiaryService() {
@@ -72,5 +73,40 @@ class DiaryService extends ChangeNotifier {
 
       return this.diaryEntries;
     }
+  }
+
+  Future saveOrCreate(DiaryEntry diaryEntry) async {
+    isSaving = true;
+    notifyListeners();
+
+    // CREACIÓN DE ENTRADA DE DIARIO.
+    if (diaryEntry.id == null) {
+    }
+    // MODIFICACIÓN DE ENTRADA DE DIARIO.
+    else {
+      // Endpoint final
+      final url =
+          Uri.http(_baseUrl, '/api/diario/entradas/modificar/${diaryEntry.id}');
+
+      // Obtengo el JWT.
+      final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+      // Headers (mando el JWT y el Content/Type).
+      final headers = {
+        HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt',
+        HttpHeaders.contentTypeHeader: 'application/json'
+      };
+
+      // Realizo la petición.
+      final response =
+          await http.patch(url, headers: headers, body: diaryEntry.toJson());
+
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Entrada de diario actualizada satisfactoriamente.', false);
+    }
+
+    isSaving = false;
+    notifyListeners();
   }
 }

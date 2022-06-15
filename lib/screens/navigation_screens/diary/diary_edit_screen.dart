@@ -20,7 +20,7 @@ class DiaryEditScreen extends StatelessWidget {
 
 class _DiaryEditBody extends StatelessWidget {
   // Recupero el DiaryService.
-  final diaryService;
+  final DiaryService diaryService;
 
   const _DiaryEditBody({
     Key? key,
@@ -36,8 +36,10 @@ class _DiaryEditBody extends StatelessWidget {
       body: SingleChildScrollView(child: _DiaryForm()),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.save),
-        onPressed: () {
-          // TODO: Guardar o modificar entrada de diario.
+        onPressed: () async {
+          if (diaryForm.isValidForm()) {
+            await diaryService.saveOrCreate(diaryForm.diaryEntry);
+          }
         },
       ),
     );
