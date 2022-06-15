@@ -150,4 +150,34 @@ class DiaryService extends ChangeNotifier {
       }
     }
   }
+
+  Future delete(DiaryEntry diaryEntry) async {
+    // Endpoint final
+    final url =
+        Uri.http(_baseUrl, '/api/diario/entradas/eliminar/${diaryEntry.id}');
+
+    // Obtengo el JWT.
+    final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+    // Headers (mando el JWT y el Content/Type).
+    final headers = {HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt'};
+
+    // Ejecuto la petición.
+    final response = await http.delete(url, headers: headers);
+
+    // Compruebo que se ha eliminado satisfactoriamente (204 No-Content)
+    if (response.statusCode == 204) {
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Entrada de diario eliminada satisfactoriamente.', false);
+
+      // La elimino de la lista global local.
+      this.diaryEntries.remove(diaryEntry);
+      notifyListeners();
+    } else {
+      // Notifico de que NO se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Ha ocurrido algún error eliminando la entrada de diario.', true);
+    }
+  }
 }
