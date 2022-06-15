@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:aygp_frontend/models/diary_entry.dart';
 import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/widgets/diary/diary_list_tile.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
 class DiaryScreen extends StatelessWidget {
@@ -25,17 +28,49 @@ class DiaryScreen extends StatelessWidget {
         body: ListView.builder(
             itemCount: diaryService.diaryEntries.length,
             itemBuilder: (context, index) => GestureDetector(
-                  child: DiaryListTile(
-                      diaryEntry: diaryService.diaryEntries[index]),
-                  onTap: () {
-                    diaryService.selectedEntry =
-                        diaryService.diaryEntries[index].copy();
+                child:
+                    DiaryListTile(diaryEntry: diaryService.diaryEntries[index]),
+                onTap: () {
+                  diaryService.selectedEntry =
+                      diaryService.diaryEntries[index].copy();
 
-                    Navigator.pushNamed(context, 'diaryedit');
-                  },
-                  onLongPress: () =>
-                      null, // TODO: Implementar diálogo de eliminar.
-                )),
+                  Navigator.pushNamed(context, 'diaryedit');
+                },
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        // Compruebo si la plataforma es IOS.
+                        if (Platform.isIOS) {
+                          return CupertinoAlertDialog(
+                            title: Text('Eliminar entrada'),
+                            content: Text(
+                                '¿Estás seguro que deseas eliminar esta entrada de diario?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(
+                                    'Cancelar',
+                                    style: TextStyle(color: Colors.red),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    diaryService.delete(
+                                        diaryService.diaryEntries[index]);
+
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Aceptar',
+                                    style: TextStyle(color: Colors.blue),
+                                  ))
+                            ],
+                          );
+                        } else {
+                          return AlertDialog();
+                        }
+                      });
+                })),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               diaryService.selectedEntry =
