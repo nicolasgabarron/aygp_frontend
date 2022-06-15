@@ -13,16 +13,25 @@ class DiaryScreen extends StatelessWidget {
     // Servicio de Diario.
     final diaryService = Provider.of<DiaryService>(context);
 
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: 25,
-        itemBuilder: (context, index) => ListTile(
-          onTap: () => Navigator.pushNamed(context, 'diaryedit'),
-          title: Text('Item $index'),
+    // Mientras que el estado de la pantalla esté cargando, muestro símbolo de cargando.
+    if (diaryService.isLoading) {
+      return Center(
+        child: CircularProgressIndicator.adaptive(),
+      );
+    }
+    // Mientras que no esté cargando (significa que ya ha traido los datos) muestro ListView.
+    else {
+      return Scaffold(
+        body: ListView.builder(
+          itemCount: 25,
+          itemBuilder: (context, index) => ListTile(
+            onTap: () => Navigator.pushNamed(context, 'diaryedit'),
+            title: Text('Item $index'),
+          ),
         ),
-      ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
-    );
+        floatingActionButton:
+            FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+      );
+    }
   }
 }
