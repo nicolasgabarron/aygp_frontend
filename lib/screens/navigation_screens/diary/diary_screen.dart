@@ -55,9 +55,11 @@ class DiaryScreen extends StatelessWidget {
                                   )),
                               TextButton(
                                   onPressed: () {
+                                    // Llamo al método del servicio que elimina la entrada.
                                     diaryService.delete(
                                         diaryService.diaryEntries[index]);
 
+                                    // Quito el focus de la ventana modal.
                                     Navigator.of(context).pop();
                                   },
                                   child: Text(
@@ -67,7 +69,32 @@ class DiaryScreen extends StatelessWidget {
                             ],
                           );
                         } else {
-                          return AlertDialog();
+                          return AlertDialog(
+                            title: Text('Eliminar entrada'),
+                            content: Text(
+                                '¿Estás seguro que deseas eliminar esta entrada de diario?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: Text(
+                                    'Cancelar',
+                                    style: TextStyle(color: Colors.red),
+                                  )),
+                              TextButton(
+                                  onPressed: () {
+                                    // Llamo al método del servicio que elimina la entrada.
+                                    diaryService.delete(
+                                        diaryService.diaryEntries[index]);
+
+                                    // Quito el focus de la ventana modal.
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text(
+                                    'Aceptar',
+                                    style: TextStyle(color: Colors.blue),
+                                  ))
+                            ],
+                          );
                         }
                       });
                 })),

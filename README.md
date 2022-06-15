@@ -14,4 +14,5 @@ Aplicación móvil para el proyecto Ayuda y Gestión Psicológica.
   - DiaryService.
     - El método que trae la información desde el servidor lo he tenido que hacer más manual porque json.decode no lo hacía dinámicamente.
     - Al actualizar, no se vuelve a solicitar una petición al servidor sino que solo se hace una vez en todo el lanzamiento de la aplicación, es decir, se lanza la petición de actualización al servidor y posteriormente se modifica LOCALMENTE.
-  
+  - DiaryScreen.
+    - En el evento onLongPress de cada item, compruebo si la plataforma es IOS o ANDROID para mostrar un AlertDialog.
