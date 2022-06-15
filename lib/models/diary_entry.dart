@@ -3,16 +3,16 @@ import 'dart:convert';
 class DiaryEntry {
   DiaryEntry({
     this.id,
-    required this.usuarioId,
+    this.usuarioId,
     required this.titulo,
-    required this.fechaCreacion,
+    this.fechaCreacion,
     required this.contenido,
   });
 
   int? id;
-  int usuarioId;
+  int? usuarioId;
   String titulo;
-  DateTime fechaCreacion;
+  DateTime? fechaCreacion;
   String contenido;
 
   factory DiaryEntry.fromJson(String str) =>
@@ -32,7 +32,7 @@ class DiaryEntry {
         "id": id,
         "usuarioId": usuarioId,
         "titulo": titulo,
-        "fechaCreacion": fechaCreacion.toIso8601String(),
+        "fechaCreacion": fechaCreacion?.toIso8601String(),
         "contenido": contenido,
       };
 

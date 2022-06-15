@@ -14,7 +14,7 @@ class DiaryListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // Transformo la fecha para poder utilizarla.
     final String fechaEntrada =
-        DateFormat('dd-MM-yyyy').format(this.diaryEntry.fechaCreacion);
+        DateFormat('dd-MM-yyyy').format(this.diaryEntry.fechaCreacion!);
 
     return Card(
       elevation: 3,
