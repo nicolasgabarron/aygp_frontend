@@ -35,4 +35,13 @@ class DiaryEntry {
         "fechaCreacion": fechaCreacion.toIso8601String(),
         "contenido": contenido,
       };
+
+  DiaryEntry copy() {
+    return DiaryEntry(
+        id: this.id,
+        usuarioId: this.usuarioId,
+        titulo: this.titulo,
+        fechaCreacion: this.fechaCreacion,
+        contenido: this.contenido);
+  }
 }
