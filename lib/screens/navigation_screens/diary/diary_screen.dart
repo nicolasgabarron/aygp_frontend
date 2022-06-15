@@ -1,8 +1,5 @@
-import 'package:aygp_frontend/models/diary_entry.dart';
 import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/widgets/diary/diary_list_tile.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
