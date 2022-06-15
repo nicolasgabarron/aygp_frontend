@@ -13,13 +13,15 @@ class DiaryService extends ChangeNotifier {
   final List<DiaryEntry> diaryEntries = [];
   bool isLoading = true;
 
-  // TODO: Hacer FETCH de DiaryEntries.
   DiaryService() {
     loadDiaryEntries();
   }
 
-  // <List<DiaryEntry>>
-  Future loadDiaryEntries() async {
+  Future<List<DiaryEntry>> loadDiaryEntries() async {
+    // NOTIFICO QUE EMPIEZA EL PROCESO DE CARGA.
+    this.isLoading = true;
+    notifyListeners();
+
     // Endpoint final
     final url = Uri.http(_baseUrl, '/api/diario/entradas');
 
@@ -52,5 +54,11 @@ class DiaryService extends ChangeNotifier {
         this.diaryEntries.add(tempDiaryEntry);
       },
     );
+
+    // NOTIFICO QUE SE HA DEJADO DE CARGAR.
+    this.isLoading = false;
+    notifyListeners();
+
+    return this.diaryEntries;
   }
 }
