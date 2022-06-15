@@ -102,6 +102,12 @@ class _DiaryForm extends StatelessWidget {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             minLines: 10,
+            onChanged: (value) => diaryEntry.contenido = value,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'El contenido es obligatorio.';
+              }
+            },
             decoration: InputDecorations.formInputDecoration(
                 hintText:
                     'Escriba aquí el contenido de la entrada de diario...'),
