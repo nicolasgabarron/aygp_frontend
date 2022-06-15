@@ -2,15 +2,12 @@
 
 Aplicación móvil para el proyecto Ayuda y Gestión Psicológica.
 
-## Getting Started
+## Futuras mejoras.
+  - Cuando se guarde un suceso clave, se guardará la ubicación, y luego en la ficha de edición, se mostrará dicha ubicación en un mapa (Apple Mapas o Google Maps).
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## A documentar...
+  - Providers.
+  - AuthProvider.
+  - SecureStorage (login, logout)
+  - CheckAuthScreen (FutureBuilder con Microtasks).
+  
