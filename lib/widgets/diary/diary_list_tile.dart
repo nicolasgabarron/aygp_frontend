@@ -24,6 +24,7 @@ class DiaryListTile extends StatelessWidget {
         title: Text(diaryEntry.titulo),
         subtitle: Text('Fecha: $fechaEntrada'),
         onTap: () => Navigator.pushNamed(context, 'diaryedit'),
+        onLongPress: () => null, // TODO: Implementar diálogo de eliminar.
       ),
     );
   }
