@@ -105,6 +105,7 @@ class DiaryService extends ChangeNotifier {
 
         // Añado a la lista de entradas locales la devuelta por el servidor.
         diaryEntries.add(DiaryEntry.fromMap(json.decode(response.body)));
+        notifyListeners();
       } else {
         // Notifico de que NO se ha realizado correctamente.
         NotificationsService.showSnackbar(
