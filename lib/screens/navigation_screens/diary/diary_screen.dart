@@ -12,6 +12,7 @@ class DiaryScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: 25,
         itemBuilder: (context, index) => ListTile(
+          onTap: () => Navigator.pushNamed(context, 'diaryedit'),
           title: Text('Item $index'),
         ),
       ),

@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
           'login': (context) => LoginScreen(),
           'register': (context) => RegisterScreen(),
           'base': (context) => BaseScreen(),
+          'diaryedit': (context) => DiaryEditScreen()
         },
         theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),
