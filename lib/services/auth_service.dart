@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aygp_frontend/services/notifications_service.dart';
+import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,8 +29,6 @@ class AuthService extends ChangeNotifier {
       "ciudadNacimiento": "No definida",
       "roles": ["usuario"]
     };
-
-    print('$username - $email - $password - $name - $surname - $date - $date');
 
     // Endpoint final.
     final url = Uri.http(_baseUrl, '/api/auth/signup');
@@ -76,10 +76,31 @@ class AuthService extends ChangeNotifier {
 
     // Compruebo el STATUS CODE para saber si ha ido correctamente la petición.
     if (response.statusCode == 200) {
-      final Map<String, dynamic> recievedData = json.decode(response.body);
+      final Map<String, dynamic> recievedData =
+          json.decode(utf8.decode(response.bodyBytes));
 
       final String? jwt = response.headers[
           'set-cookie']; // Si hace login, este header va a venir si o si.
+
+      // Obtengo datos personales.
+      Preferences.username = recievedData['username'];
+      Preferences.name = recievedData['nombre'];
+      Preferences.surname = recievedData['apellidos'];
+
+      // TODO: ESTUDIAR SI SE PRETENDE MODULARIZAR
+      // Obtengo frase célebre del día.
+      final endpointFrase =
+          Uri.https('frasedeldia.azurewebsites.net', '/api/phrase');
+
+      final quoteResponse = await http.get(endpointFrase);
+
+      if (quoteResponse.statusCode == 200) {
+        final Map<String, dynamic> recievedQuote =
+            json.decode(utf8.decode(quoteResponse.bodyBytes));
+
+        Preferences.quote = recievedQuote['phrase'];
+        Preferences.author = recievedQuote['author'];
+      }
 
       if (jwt != null) {
         var splittedCookies = jwt.split(';');
@@ -112,6 +133,8 @@ class AuthService extends ChangeNotifier {
     if (response.statusCode == 200) {
       // Limpio el JWT almacenado en el SecureStorage.
       secureStorage.delete(key: 'nicogbdev_jwt');
+
+      // TODO: ELIMINAR SHARED PREFERENCES.
 
       // Muestro mensaje de Logout satisfactorio.
       NotificationsService.showSnackbar(
