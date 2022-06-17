@@ -81,6 +81,10 @@ class AuthService extends ChangeNotifier {
       final String? jwt = response.headers[
           'set-cookie']; // Si hace login, este header va a venir si o si.
 
+      // Obtengo datos personales.
+      Preferences.name = recievedData['nombre'];
+      Preferences.surname = recievedData['apellidos'];
+
       if (jwt != null) {
         var splittedCookies = jwt.split(';');
 
