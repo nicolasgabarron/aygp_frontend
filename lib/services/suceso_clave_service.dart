@@ -98,7 +98,7 @@ class SucesoClaveService extends ChangeNotifier {
       if (response.statusCode == 201) {
         // Notifico de que se ha realizado correctamente.
         NotificationsService.showSnackbar(
-            'Entrada de diario creada satisfactoriamente.', false);
+            'Suceso Clave creado satisfactoriamente.', false);
 
         // Añado a la lista de entradas locales la devuelta por el servidor.
         sucesosClave.add(SucesoClave.fromMap(json.decode(response.body)));
@@ -106,7 +106,7 @@ class SucesoClaveService extends ChangeNotifier {
       } else {
         // Notifico de que NO se ha realizado correctamente.
         NotificationsService.showSnackbar(
-            'Ha ocurrido algún error creando la entrada de diario.', true);
+            'Ha ocurrido algún error creando el suceso clave.', true);
       }
     }
     // MODIFICACIÓN DE SUCESO CLAVE
@@ -130,7 +130,7 @@ class SucesoClaveService extends ChangeNotifier {
       if (response.statusCode == 200) {
         // Notifico de que se ha realizado correctamente.
         NotificationsService.showSnackbar(
-            'Entrada de diario actualizada satisfactoriamente.', false);
+            'Suceso Clave modificado satisfactoriamente.', false);
 
         // Actualizo la lista de la vista principal.
         final findDiaryEntryIndex = this
@@ -143,8 +143,37 @@ class SucesoClaveService extends ChangeNotifier {
       } else {
         // Notifico de que NO se ha realizado correctamente.
         NotificationsService.showSnackbar(
-            'Ha ocurrido algún error actualizando la entrada de diario.', true);
+            'Ha ocurrido algún error actualizando el suceso clave.', true);
       }
+    }
+  }
+
+  Future delete(SucesoClave sucesoClave) async {
+    // Endpoint final
+    final url = Uri.http(_baseUrl, '/api/sclave/sucesos/${sucesoClave.id}');
+
+    // Obtengo el JWT.
+    final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+    // Headers (mando el JWT y el Content/Type).
+    final headers = {HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt'};
+
+    // Ejecuto la petición.
+    final response = await http.delete(url, headers: headers);
+
+    // Compruebo que se ha eliminado satisfactoriamente (204 No-Content)
+    if (response.statusCode == 204) {
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Suceso clave eliminado satisfactoriamente.', false);
+
+      // La elimino de la lista global local.
+      this.sucesosClave.remove(sucesoClave);
+      notifyListeners();
+    } else {
+      // Notifico de que NO se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Ha ocurrido algún error eliminando el suceso clave.', true);
     }
   }
 }
