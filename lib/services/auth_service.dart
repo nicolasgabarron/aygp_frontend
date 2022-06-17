@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aygp_frontend/services/notifications_service.dart';
+import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -27,8 +28,6 @@ class AuthService extends ChangeNotifier {
       "ciudadNacimiento": "No definida",
       "roles": ["usuario"]
     };
-
-    print('$username - $email - $password - $name - $surname - $date - $date');
 
     // Endpoint final.
     final url = Uri.http(_baseUrl, '/api/auth/signup');
@@ -76,7 +75,8 @@ class AuthService extends ChangeNotifier {
 
     // Compruebo el STATUS CODE para saber si ha ido correctamente la petición.
     if (response.statusCode == 200) {
-      final Map<String, dynamic> recievedData = json.decode(response.body);
+      final Map<String, dynamic> recievedData =
+          json.decode(utf8.decode(response.bodyBytes));
 
       final String? jwt = response.headers[
           'set-cookie']; // Si hace login, este header va a venir si o si.
