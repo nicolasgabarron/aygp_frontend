@@ -10,6 +10,7 @@ class Preferences {
   static String _surname = '';
   static String _quote = '';
   static String _author = '';
+  static String _quickNote = '';
   static bool _isDarkMode = false;
 
   // Método asíncrono que inicializa la instancia global (singleton) de getInstance()
@@ -67,6 +68,16 @@ class Preferences {
     _author = author;
 
     _prefs.setString('author', author);
+  }
+
+  static String get quickNote {
+    return _prefs.getString('quickNote') ?? _quickNote;
+  }
+
+  static set quickNote(String quickNote) {
+    _quickNote = quickNote;
+
+    _prefs.setString('quickNote', quickNote);
   }
 
   static bool get isDarkMode {
