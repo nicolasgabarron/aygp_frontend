@@ -42,7 +42,8 @@ class DiaryService extends ChangeNotifier {
     // Compruebo posibles errores en la respuesta.
     if (response.statusCode == 200) {
       // Recupero la lista de JSONs.
-      final List<dynamic> rawResponse = json.decode(response.body);
+      final List<dynamic> rawResponse =
+          json.decode(utf8.decode(response.bodyBytes));
 
       // Creo una lista de MAPAS (Esto es necesario ya que el parser de
       // DiaryEntry (modelo) fromMap, necesita un Mapa, y Flutter no hace la conversión
