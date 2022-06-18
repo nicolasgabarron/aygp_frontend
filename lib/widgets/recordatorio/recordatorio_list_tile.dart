@@ -13,18 +13,23 @@ class RecordatorioListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Transformo la fecha para poder utilizarla.
-    final String fechaCreacionText =
-        DateFormat('dd-MM-yyyy').format(recordatorio.fechaCreacion!);
     final String fechaVencimientoText =
         DateFormat('dd-MM-yyyy - hh:mm').format(recordatorio.fechaRecordatorio);
 
     return Card(
       elevation: 3,
       child: ListTile(
-        leading: Icon(Icons.calendar_today),
+        leading: recordatorio.realizado
+            ? Icon(
+                Icons.calendar_today,
+                color: Colors.green,
+              )
+            : Icon(
+                Icons.calendar_today,
+                color: Colors.red,
+              ),
         title: Text(recordatorio.titulo),
-        subtitle: Text(
-            'Fecha creación: $fechaCreacionText | Fecha vencimiento: $fechaVencimientoText'),
+        subtitle: Text('Vencimiento: $fechaVencimientoText'),
       ),
     );
   }
