@@ -1,6 +1,6 @@
 import 'package:aygp_frontend/providers/theme_provider.dart';
 import 'package:aygp_frontend/providers/ui_provider.dart';
-import 'package:aygp_frontend/screens/navigation_screens/reminders_edit_screen.dart';
+import 'package:aygp_frontend/screens/navigation_screens/reminders/reminders_edit_screen.dart';
 import 'package:aygp_frontend/screens/navigation_screens/sucesos_clave/sucesos_clave_edit_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
 import 'package:aygp_frontend/services/auth_service.dart';

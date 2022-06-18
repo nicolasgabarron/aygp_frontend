@@ -5,6 +5,6 @@ export 'package:aygp_frontend/screens/navigation_screens/check_auth_screen.dart'
 export 'package:aygp_frontend/screens/navigation_screens/diary/diary_edit_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/diary/diary_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/home_screen.dart';
-export 'package:aygp_frontend/screens/navigation_screens/reminders_screen.dart';
+export 'package:aygp_frontend/screens/navigation_screens/reminders/reminders_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/settings_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/sucesos_clave/sucesos_clave_screen.dart';
