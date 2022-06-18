@@ -149,4 +149,64 @@ class RecordatorioService extends ChangeNotifier {
       }
     }
   }
+
+  Future makeItDone(Recordatorio recordatorio) async {
+    // Endpoint final
+    final url =
+        Uri.http(_baseUrl, '/api/recordatorios/realizado/${recordatorio.id}');
+
+    // Obtengo el JWT.
+    final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+    // Headers (mando el JWT y el Content/Type).
+    final headers = {HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt'};
+
+    // Ejecuto la petición.
+    final response = await http.patch(url, headers: headers);
+
+    // Compruebo que se ha eliminado satisfactoriamente (200 No-Content)
+    if (response.statusCode == 200) {
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Recordatorio eliminado satisfactoriamente.', false);
+
+      // La elimino de la lista global local.
+      this.recordatorios.remove(recordatorio);
+      notifyListeners();
+    } else {
+      // Notifico de que NO se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Ha ocurrido algún error eliminando el recordatorio.', true);
+    }
+  }
+
+  Future delete(Recordatorio recordatorio) async {
+    // Endpoint final
+    final url =
+        Uri.http(_baseUrl, '/api/recordatorios/eliminar/${recordatorio.id}');
+
+    // Obtengo el JWT.
+    final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+    // Headers (mando el JWT y el Content/Type).
+    final headers = {HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt'};
+
+    // Ejecuto la petición.
+    final response = await http.delete(url, headers: headers);
+
+    // Compruebo que se ha eliminado satisfactoriamente (200 No-Content)
+    if (response.statusCode == 200) {
+      // Notifico de que se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Recordatorio eliminado satisfactoriamente.', false);
+
+      // La elimino de la lista global local.
+      this.recordatorios.remove(recordatorio);
+      notifyListeners();
+    } else {
+      // Notifico de que NO se ha realizado correctamente.
+      NotificationsService.showSnackbar(
+          'Ha ocurrido algún error eliminando el recordatorio.', true);
+    }
+  }
 }
