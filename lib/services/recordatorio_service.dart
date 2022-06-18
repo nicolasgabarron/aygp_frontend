@@ -20,6 +20,10 @@ class RecordatorioService extends ChangeNotifier {
   bool isSaving = false;
   late Recordatorio selectedRecordatorio;
 
+  RecordatorioService() {
+    this.loadRecordatorios();
+  }
+
   Future<List<Recordatorio>> loadRecordatorios() async {
     // NOTIFICO QUE EMPIEZA EL PROCESO DE CARGA.
     this.isLoading = true;
