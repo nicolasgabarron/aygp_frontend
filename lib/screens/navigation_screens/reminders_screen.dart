@@ -34,7 +34,7 @@ class RemindersScreen extends StatelessWidget {
                   recordatorioService.selectedRecordatorio =
                       recordatorioService.recordatorios[index];
 
-                  // TODO: Implementar navigator.
+                  Navigator.pushNamed(context, 'recordatorioedit');
                 },
                 onLongPress: () {
                   showDialog(
@@ -108,7 +108,7 @@ class RemindersScreen extends StatelessWidget {
                 fechaRecordatorio: DateTime.now(),
                 realizado: false);
 
-            // TODO: Implementar navigator.
+            Navigator.pushNamed(context, 'recordatorioedit');
           },
           child: Icon(Icons.add),
         ),
