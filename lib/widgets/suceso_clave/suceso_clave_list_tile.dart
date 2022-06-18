@@ -28,4 +28,19 @@ class SucesoClaveListTile extends StatelessWidget {
       ),
     );
   }
+
+  String getValoracionSuceso(double valoracion) {
+    if (valoracion == 0)
+      return 'Horrible';
+    else if (valoracion == 2.5)
+      return 'Muy mal';
+    else if (valoracion == 5)
+      return 'Normal';
+    else if (valoracion == 7.5)
+      return 'Bien';
+    else if (valoracion == 10) return 'Muy bien';
+
+    // Teóricamente inalcanzable.
+    return 'No se ha podido calcular...';
+  }
 }
