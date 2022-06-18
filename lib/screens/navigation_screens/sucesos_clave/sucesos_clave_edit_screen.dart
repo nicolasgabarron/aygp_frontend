@@ -118,7 +118,7 @@ class _SucesoClaveFormState extends State<_SucesoClaveForm> {
                       onConfirm: (fechaSeleccionada) {
                     sucesoClave.fechaSuceso = fechaSeleccionada;
 
-                    _controller.text = DateFormat('dd-MM-yyyy // HH:mm')
+                    _controller.text = DateFormat('dd-MM-yyyy || HH:mm')
                         .format(sucesoClave.fechaSuceso);
 
                     setState(() {});
