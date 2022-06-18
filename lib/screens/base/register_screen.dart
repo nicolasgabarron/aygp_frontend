@@ -156,15 +156,24 @@ class _RegisterFormState extends State<_RegisterForm> {
                     prefixIcon: Icons.date_range),
                 readOnly: true,
                 onTap: () async {
-                  DatePicker.showDatePicker(context, showTitleActions: true,
-                      onConfirm: (fechaSeleccionada) {
-                    registerForm.fechaNacimiento =
-                        DateFormat('dd-MM-yyyy').format(fechaSeleccionada);
+                  DateTime? selectedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(1950),
+                      lastDate: DateTime.now(),
+                      helpText: 'Fecha de nacimiento',
+                      // locale: Locale..., TODO: Implementar lenguaje ESPAÑOL.
+                      cancelText: 'Cancelar',
+                      confirmText: 'Aceptar');
 
-                    datecontroller.text = registerForm.fechaNacimiento;
+                  if (selectedDate != null) {
+                    String formattedDate =
+                        DateFormat('dd-MM-yyyy').format(selectedDate);
+
+                    datecontroller.text = formattedDate;
 
                     setState(() {});
-                  });
+                  }
                 },
               ),
 
