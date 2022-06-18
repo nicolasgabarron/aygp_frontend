@@ -4,6 +4,7 @@ import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:aygp_frontend/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -155,24 +156,15 @@ class _RegisterFormState extends State<_RegisterForm> {
                     prefixIcon: Icons.date_range),
                 readOnly: true,
                 onTap: () async {
-                  DateTime? selectedDate = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1950),
-                      lastDate: DateTime.now(),
-                      helpText: 'Fecha de nacimiento',
-                      // locale: Locale..., TODO: Implementar lenguaje ESPAÑOL.
-                      cancelText: 'Cancelar',
-                      confirmText: 'Aceptar');
+                  DatePicker.showDatePicker(context, showTitleActions: true,
+                      onConfirm: (fechaSeleccionada) {
+                    registerForm.fechaNacimiento =
+                        DateFormat('dd-MM-yyyy').format(fechaSeleccionada);
 
-                  if (selectedDate != null) {
-                    String formattedDate =
-                        DateFormat('dd-MM-yyyy').format(selectedDate);
-
-                    datecontroller.text = formattedDate;
+                    datecontroller.text = registerForm.fechaNacimiento;
 
                     setState(() {});
-                  }
+                  });
                 },
               ),
 
