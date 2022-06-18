@@ -24,8 +24,23 @@ class SucesoClaveListTile extends StatelessWidget {
         ),
         title: Text(sucesoClave.titulo),
         subtitle: Text(
-            'Fecha: $fechaEntrada - Valoración: ${sucesoClave.valoracion}'),
+            'Fecha: $fechaEntrada - Valoración: ${getValoracionSuceso(sucesoClave.valoracion)}'),
       ),
     );
+  }
+
+  String getValoracionSuceso(double valoracion) {
+    if (valoracion == 0)
+      return 'Horrible';
+    else if (valoracion == 2.5)
+      return 'Muy mala';
+    else if (valoracion == 5)
+      return 'Normal';
+    else if (valoracion == 7.5)
+      return 'Buena';
+    else if (valoracion == 10) return 'Muy buena';
+
+    // Teóricamente inalcanzable.
+    return 'No se ha podido calcular...';
   }
 }
