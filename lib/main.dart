@@ -4,6 +4,7 @@ import 'package:aygp_frontend/screens/screens.dart';
 import 'package:aygp_frontend/services/auth_service.dart';
 import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/services/notifications_service.dart';
+import 'package:aygp_frontend/services/suceso_clave_service.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +38,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => new DiaryService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => new SucesoClaveService(),
         )
       ],
       child: MaterialApp(
