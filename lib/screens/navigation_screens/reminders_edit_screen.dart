@@ -2,6 +2,8 @@ import 'package:aygp_frontend/providers/recordatorio_form_provider.dart';
 import 'package:aygp_frontend/services/recordatorio_service.dart';
 import 'package:aygp_frontend/ui/input_decorations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class RemindersEditScreen extends StatelessWidget {
@@ -47,14 +49,23 @@ class _RecordatorioEditBody extends StatelessWidget {
   }
 }
 
-class _RecordatorioForm extends StatelessWidget {
+class _RecordatorioForm extends StatefulWidget {
   const _RecordatorioForm({Key? key}) : super(key: key);
 
+  @override
+  State<_RecordatorioForm> createState() => _RecordatorioFormState();
+}
+
+class _RecordatorioFormState extends State<_RecordatorioForm> {
   @override
   Widget build(BuildContext context) {
     // Propiedades.
     final recordatorioProvider = Provider.of<RecordatorioFormProvider>(context);
     final recordatorio = recordatorioProvider.recordatorio;
+    final TextEditingController _controller = TextEditingController();
+
+    _controller.text = DateFormat('dd-MM-yyyy // hh:mm')
+        .format(recordatorio.fechaRecordatorio);
 
     return Container(
       padding: EdgeInsets.all(15),
@@ -85,6 +96,74 @@ class _RecordatorioForm extends StatelessWidget {
                 decoration: InputDecorations.formInputDecoration(
                     hintText: 'Introduzca el título del suceso clave'),
               ),
+
+              SizedBox(
+                height: 25,
+              ),
+
+              // Fecha del recordatorio
+              Text(
+                'Fecha del recordatorio',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+
+              TextFormField(
+                controller: _controller,
+                readOnly: true,
+                decoration: InputDecorations.formInputDecoration(
+                    hintText: 'Fecha y hora del suceso'),
+                onTap: () {
+                  DatePicker.showDateTimePicker(context, showTitleActions: true,
+                      onConfirm: (fechaSeleccionada) {
+                    recordatorio.fechaRecordatorio = fechaSeleccionada;
+
+                    _controller.text = DateFormat('dd-MM-yyyy // HH:mm')
+                        .format(recordatorio.fechaRecordatorio);
+
+                    setState(() {});
+                  });
+                },
+              ),
+
+              SizedBox(
+                height: 25,
+              ),
+
+              // Contenido
+              Text(
+                'Fecha del recordatorio',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              ),
+
+              TextFormField(
+                initialValue: recordatorio.detalle,
+                maxLines: 10,
+                onChanged: (value) => recordatorio.detalle = value,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'El detalle es obligatorio.';
+                  }
+                },
+                decoration: InputDecorations.formInputDecoration(
+                    hintText: 'Introduzca el contenido del recordatorio'),
+              ),
+
+              SizedBox(
+                height: 25,
+              ),
+
+              // Realizado
+              SwitchListTile.adaptive(
+                  title: Text(
+                    'Realizado',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                  value: recordatorio.realizado,
+                  onChanged: (newValue) {
+                    recordatorio.realizado = newValue;
+
+                    setState(() {});
+                  })
             ],
           )),
     );
