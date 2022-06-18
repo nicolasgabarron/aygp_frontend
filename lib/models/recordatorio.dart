@@ -20,7 +20,7 @@ class Recordatorio {
   String titulo;
   String detalle;
   DateTime? fechaCreacion;
-  String fechaRecordatorio;
+  DateTime fechaRecordatorio;
   bool realizado;
 
   factory Recordatorio.fromJson(String str) =>
@@ -34,7 +34,7 @@ class Recordatorio {
         titulo: json["titulo"],
         detalle: json["detalle"],
         fechaCreacion: DateTime.parse(json["fechaCreacion"]),
-        fechaRecordatorio: json["fechaRecordatorio"],
+        fechaRecordatorio: DateTime.parse(json["fechaRecordatorio"]),
         realizado: json["realizado"],
       );
 
