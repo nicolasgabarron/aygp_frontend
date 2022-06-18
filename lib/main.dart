@@ -1,10 +1,12 @@
 import 'package:aygp_frontend/providers/theme_provider.dart';
 import 'package:aygp_frontend/providers/ui_provider.dart';
+import 'package:aygp_frontend/screens/navigation_screens/reminders_edit_screen.dart';
 import 'package:aygp_frontend/screens/navigation_screens/sucesos_clave/sucesos_clave_edit_screen.dart';
 import 'package:aygp_frontend/screens/screens.dart';
 import 'package:aygp_frontend/services/auth_service.dart';
 import 'package:aygp_frontend/services/diary_service.dart';
 import 'package:aygp_frontend/services/notifications_service.dart';
+import 'package:aygp_frontend/services/recordatorio_service.dart';
 import 'package:aygp_frontend/services/suceso_clave_service.dart';
 import 'package:aygp_frontend/share_preferences/preferences.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => new SucesoClaveService(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => new RecordatorioService(),
         )
       ],
       child: MaterialApp(
@@ -55,7 +60,8 @@ class MyApp extends StatelessWidget {
           'register': (context) => RegisterScreen(),
           'base': (context) => BaseScreen(),
           'diaryedit': (context) => DiaryEditScreen(),
-          'sucesoclaveedit': (context) => SucesosClaveEditScreen()
+          'sucesoclaveedit': (context) => SucesosClaveEditScreen(),
+          'recordatorioedit': (context) => RemindersEditScreen()
         },
         theme: Provider.of<ThemeProvider>(context).currentTheme,
       ),
