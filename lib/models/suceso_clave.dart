@@ -50,6 +50,9 @@ class SucesoClave {
 
   SucesoClave copy() {
     return SucesoClave(
+        id: this.id,
+        usuarioId: this.usuarioId,
+        fechaCreacion: this.fechaCreacion,
         fechaSuceso: this.fechaSuceso,
         titulo: this.titulo,
         contenido: this.contenido,
