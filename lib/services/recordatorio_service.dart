@@ -72,4 +72,81 @@ class RecordatorioService extends ChangeNotifier {
       return this.recordatorios;
     }
   }
+
+  Future saveOrCreate(Recordatorio recordatorio) async {
+    isSaving = true;
+    notifyListeners();
+
+    // CREACIÓN DE RECORDATORIO.
+    if (recordatorio.id == null) {
+      // Endpoint final
+      final url = Uri.http(_baseUrl, '/api/recordatorios/nuevo');
+
+      // Obtengo el JWT.
+      final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+      // Headers (mando el JWT y el Content/Type).
+      final headers = {
+        HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt',
+        HttpHeaders.contentTypeHeader: 'application/json'
+      };
+
+      // Realizo la petición.
+      final response =
+          await http.post(url, headers: headers, body: recordatorio.toJson());
+
+      // Si la petición se ha ejecutado correctamente...
+      if (response.statusCode == 200) {
+        // Notifico de que se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Recordatorio creado satisfactoriamente.', false);
+
+        // Añado a la lista de entradas locales la devuelta por el servidor.
+        recordatorios.add(Recordatorio.fromMap(json.decode(response.body)));
+        notifyListeners();
+      } else {
+        // Notifico de que NO se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Ha ocurrido algún error creando el recordatorio.', true);
+      }
+    }
+    // MODIFICACIÓN DE ENTRADA DE DIARIO.
+    else {
+      // Endpoint final
+      final url =
+          Uri.http(_baseUrl, '/api/recordatorios/modificar/${recordatorio.id}');
+
+      // Obtengo el JWT.
+      final userJwt = await secureStorage.read(key: 'nicogbdev_jwt');
+
+      // Headers (mando el JWT y el Content/Type).
+      final headers = {
+        HttpHeaders.cookieHeader: 'nicogbdev_jwt=$userJwt',
+        HttpHeaders.contentTypeHeader: 'application/json'
+      };
+
+      // Realizo la petición.
+      final response =
+          await http.patch(url, headers: headers, body: recordatorio.toJson());
+
+      if (response.statusCode == 200) {
+        // Notifico de que se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Recordatorio actualizado satisfactoriamente.', false);
+
+        // Actualizo la lista de la vista principal.
+        final findDiaryEntryIndex = this
+            .recordatorios
+            .indexWhere((element) => element.id == recordatorio.id);
+        this.recordatorios[findDiaryEntryIndex] = recordatorio;
+
+        isSaving = false;
+        notifyListeners();
+      } else {
+        // Notifico de que NO se ha realizado correctamente.
+        NotificationsService.showSnackbar(
+            'Ha ocurrido algún error actualizando el recordatorio.', true);
+      }
+    }
+  }
 }
