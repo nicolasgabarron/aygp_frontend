@@ -44,7 +44,7 @@ class Recordatorio {
         "titulo": titulo,
         "detalle": detalle,
         "fechaCreacion": fechaCreacion?.toIso8601String(),
-        "fechaRecordatorio": fechaRecordatorio?.toIso8601String(),
+        "fechaRecordatorio": fechaRecordatorio.toIso8601String(),
         "realizado": realizado,
       };
 }

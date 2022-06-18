@@ -11,7 +11,7 @@ import 'notifications_service.dart';
 class SucesoClaveService extends ChangeNotifier {
   // Propiedades.
   final String _baseUrl = 'localhost:9090';
-  // final String _baseUrl = '192.168.0.130:9090'; // ANDROID
+  // final String _baseUrl = '192.168.0.100:9090'; // ANDROID
 
   final secureStorage = new FlutterSecureStorage();
   final List<SucesoClave> sucesosClave = [];
@@ -43,7 +43,8 @@ class SucesoClaveService extends ChangeNotifier {
     // Compruebo posibles errores en la respuesta.
     if (response.statusCode == 200) {
       // Recupero la lista de JSONs.
-      final List<dynamic> rawResponse = json.decode(response.body);
+      final List<dynamic> rawResponse =
+          json.decode(utf8.decode(response.bodyBytes));
 
       // Creo una lista de MAPAS (Esto es necesario ya que el parser de
       // DiaryEntry (modelo) fromMap, necesita un Mapa, y Flutter no hace la conversión

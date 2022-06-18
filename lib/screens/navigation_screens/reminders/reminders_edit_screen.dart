@@ -117,7 +117,7 @@ class _RecordatorioFormState extends State<_RecordatorioForm> {
                       onConfirm: (fechaSeleccionada) {
                     recordatorio.fechaRecordatorio = fechaSeleccionada;
 
-                    _controller.text = DateFormat('dd-MM-yyyy // HH:mm')
+                    _controller.text = DateFormat('dd-MM-yyyy || HH:mm')
                         .format(recordatorio.fechaRecordatorio);
 
                     setState(() {});

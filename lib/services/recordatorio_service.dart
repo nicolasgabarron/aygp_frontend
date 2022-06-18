@@ -12,7 +12,7 @@ import 'notifications_service.dart';
 class RecordatorioService extends ChangeNotifier {
   // Propiedades.
   final String _baseUrl = 'localhost:9090';
-  // final String _baseUrl = '192.168.0.130:9090'; // ANDROID
+  // final String _baseUrl = '192.168.0.100:9090'; // ANDROID
 
   final secureStorage = new FlutterSecureStorage();
   final List<Recordatorio> recordatorios = [];
