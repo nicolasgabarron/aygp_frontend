@@ -52,6 +52,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           child: Container(),
         ),
 
+        Text('Aplicación desarrollada por Nicolás Gabarrón Blaya'),
+
         // BOTON Cerrar sesión.
         TextButton(
             onPressed: () async {
