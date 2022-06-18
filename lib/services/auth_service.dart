@@ -87,20 +87,19 @@ class AuthService extends ChangeNotifier {
       Preferences.name = recievedData['nombre'];
       Preferences.surname = recievedData['apellidos'];
 
-      // TODO: ESTUDIAR SI SE PRETENDE MODULARIZAR
       // Obtengo frase célebre del día.
-      final endpointFrase =
-          Uri.https('frasedeldia.azurewebsites.net', '/api/phrase');
+      //final endpointFrase =
+      //    Uri.https('frasedeldia.azurewebsites.net', '/api/phrase');
 
-      final quoteResponse = await http.get(endpointFrase);
+      // final quoteResponse = await http.get(endpointFrase);
 
-      if (quoteResponse.statusCode == 200) {
-        final Map<String, dynamic> recievedQuote =
-            json.decode(utf8.decode(quoteResponse.bodyBytes));
+      //if (quoteResponse.statusCode == 200) {
+      //final Map<String, dynamic> recievedQuote =
+      //    json.decode(utf8.decode(quoteResponse.bodyBytes));
 
-        Preferences.quote = recievedQuote['phrase'];
-        Preferences.author = recievedQuote['author'];
-      }
+      Preferences.quote = 'Lleva tiempo llegar a ser joven';
+      Preferences.author = 'Pablo Picasso';
+      // }
 
       if (jwt != null) {
         var splittedCookies = jwt.split(';');
