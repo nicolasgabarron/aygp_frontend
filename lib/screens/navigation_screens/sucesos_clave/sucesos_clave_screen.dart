@@ -33,7 +33,7 @@ class SucesosClaveScreen extends StatelessWidget {
               sucesoClaveService.selectedSuceso =
                   sucesoClaveService.sucesosClave[index].copy();
 
-              // TODO: Implementar Navigator.
+              Navigator.pushNamed(context, 'sucesoclaveedit');
             },
           ),
         ),
@@ -45,7 +45,7 @@ class SucesosClaveScreen extends StatelessWidget {
                 contenido: '',
                 valoracion: 5);
 
-            // TODO: Añadir el navigator.
+            Navigator.pushNamed(context, 'sucesoclaveedit');
           },
           child: Icon(Icons.add),
         ),
