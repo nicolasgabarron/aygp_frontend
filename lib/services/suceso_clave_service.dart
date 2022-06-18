@@ -19,6 +19,10 @@ class SucesoClaveService extends ChangeNotifier {
   bool isSaving = false;
   late SucesoClave selectedSuceso;
 
+  SucesoClaveService() {
+    this.loadSucesosClave();
+  }
+
   Future<List<SucesoClave>> loadSucesosClave() async {
     // NOTIFICO QUE EMPIEZA EL PROCESO DE CARGA
     this.isLoading = true;
