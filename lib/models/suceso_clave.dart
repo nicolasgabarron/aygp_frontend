@@ -47,4 +47,12 @@ class SucesoClave {
         "contenido": contenido,
         "valoracion": valoracion,
       };
+
+  SucesoClave copy() {
+    return SucesoClave(
+        fechaSuceso: this.fechaSuceso,
+        titulo: this.titulo,
+        contenido: this.contenido,
+        valoracion: this.valoracion);
+  }
 }
