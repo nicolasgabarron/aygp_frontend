@@ -27,9 +27,9 @@ class InputDecorations {
   static InputDecoration formInputDecoration(
       {required String hintText, String? labelText, IconData? prefixIcon}) {
     return InputDecoration(
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue[800]!)),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.blue[800]!, width: 2)),
         hintText: hintText,
         labelText: labelText ?? null,

@@ -7,4 +7,4 @@ export 'package:aygp_frontend/screens/navigation_screens/diary/diary_screen.dart
 export 'package:aygp_frontend/screens/navigation_screens/home_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/reminders_screen.dart';
 export 'package:aygp_frontend/screens/navigation_screens/settings_screen.dart';
-export 'package:aygp_frontend/screens/navigation_screens/sucesos_clave_screen.dart';
+export 'package:aygp_frontend/screens/navigation_screens/sucesos_clave/sucesos_clave_screen.dart';
