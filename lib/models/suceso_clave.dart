@@ -17,8 +17,8 @@ class SucesoClave {
 
   int? id;
   int? usuarioId;
-  String? fechaCreacion;
-  String fechaSuceso;
+  DateTime? fechaCreacion;
+  DateTime fechaSuceso;
   String titulo;
   String contenido;
   int valoracion;
@@ -31,8 +31,8 @@ class SucesoClave {
   factory SucesoClave.fromMap(Map<String, dynamic> json) => SucesoClave(
         id: json["id"],
         usuarioId: json["usuarioId"],
-        fechaCreacion: json["fechaCreacion"],
-        fechaSuceso: json["fechaSuceso"],
+        fechaCreacion: DateTime.parse(json["fechaCreacion"]),
+        fechaSuceso: DateTime.parse(json["fechaSuceso"]),
         titulo: json["titulo"],
         contenido: json["contenido"],
         valoracion: json["valoracion"],
@@ -41,8 +41,8 @@ class SucesoClave {
   Map<String, dynamic> toMap() => {
         "id": id,
         "usuarioId": usuarioId,
-        "fechaCreacion": fechaCreacion,
-        "fechaSuceso": fechaSuceso,
+        "fechaCreacion": fechaCreacion?.toIso8601String(),
+        "fechaSuceso": fechaSuceso.toIso8601String(),
         "titulo": titulo,
         "contenido": contenido,
         "valoracion": valoracion,
