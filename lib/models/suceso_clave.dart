@@ -21,7 +21,7 @@ class SucesoClave {
   DateTime fechaSuceso;
   String titulo;
   String contenido;
-  int valoracion;
+  double valoracion;
 
   factory SucesoClave.fromJson(String str) =>
       SucesoClave.fromMap(json.decode(str));
