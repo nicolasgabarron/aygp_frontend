@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 class DiaryService extends ChangeNotifier {
   // Propiedades.
   final String _baseUrl = 'localhost:9090';
-  // final String _baseUrl = '192.168.0.130:9090'; // ANDROID
+  // final String _baseUrl = '192.168.0.100:9090'; // ANDROID
 
   final secureStorage = new FlutterSecureStorage();
   final List<DiaryEntry> diaryEntries = [];
